@@ -4,9 +4,9 @@ name: Unity Build
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ main ]
+    tags: v*
   pull_request:
-    branches: [ main ]
+    tags: v*
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -42,9 +42,9 @@ jobs:
     needs: [build]
     name: Deploy to itch.io
     env:
-      BUTLER_API_KEY: 3VXTCGNaRLBoyQl6lUXaAdf1PdaivXNc2khzgORQ
-      itch_channel: <channel name> # e.g. jms777/gameName:web
-      itch_url: <your game url> #e.g. https://jms777.itch.io/brackeys2021-1 
+      BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+      itch_channel: jms777/brackeys-5:web # e.g. jms777/gameName:web
+      itch_url: https://jms777.itch.io/brackeys-5
     steps:
       - name: Download Game Artifact
         uses: actions/download-artifact@v2.0.8
@@ -60,4 +60,4 @@ jobs:
         run: ./butler.exe push ./game.zip $env:itch_channel
       - name: Notify Discord
         if: success()
-        run: Invoke-WebRequest -Method Post -Body @{content='New build deployed - $env:itch_url'} -Uri https://discord.com/api/webhooks/806215909349392416/50ZFHErCNojaeCcQ4x1U7RcwFYXoaPv5YG0uzeiioB7MNGQRGVYoqK_kZaUkocj3BMlK
+        run: Invoke-WebRequest -Method Post -Body @{content="New build deployed - $env:itch_url"} -Uri https://discord.com/api/webhooks/806215909349392416/50ZFHErCNojaeCcQ4x1U7RcwFYXoaPv5YG0uzeiioB7MNGQRGVYoqK_kZaUkocj3BMlK

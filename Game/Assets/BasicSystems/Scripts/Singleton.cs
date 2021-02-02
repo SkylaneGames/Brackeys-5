@@ -16,7 +16,7 @@ namespace CoreSystems
                     if (instance == null){
                         instance = FindObjectOfType<T>();
 
-                        if (instance == null)
+                        if (instance == null && !shuttingDown)
                         {
                             var singletonObject = new GameObject();
                             instance = singletonObject.AddComponent<T>();
