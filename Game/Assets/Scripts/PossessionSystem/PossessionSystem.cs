@@ -52,7 +52,7 @@ namespace Possession
                 }
 
                 PossessedCharacter = character;
-                CameraSystem.Target = PossessedCharacter.Transform;
+                CameraSystem.Target = PossessedCharacter.Transform.parent;
 
                 // Handle Spirit form
 
@@ -101,7 +101,7 @@ namespace Possession
 
         private Vector3 GetPositionAfterPossession()
         {
-            return PossessedCharacter.Transform.position - PossessedCharacter.Transform.forward;
+            return PossessedCharacter.Transform.parent.position - PossessedCharacter.Transform.parent.forward;
         }
     }
 }

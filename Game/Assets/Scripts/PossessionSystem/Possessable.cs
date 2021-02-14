@@ -4,12 +4,11 @@ using UnityEngine;
 
 namespace Possession
 {
-    [RequireComponent(typeof(Possess_CharacterMovement))]
     [RequireComponent(typeof(Collider))]
-    public abstract class Possessable : MonoBehaviour, IPossessable, IInteractable
+    public class Possessable : MonoBehaviour, IPossessable, IInteractable
     {
-        public abstract Possess_CharacterMovement MovementSystem { get; protected set; }
-        public abstract CharacterInteraction InteractionSystem { get; protected set; }
+        public event Action Possessed;
+        public event Action PossessionReleased;
 
         public bool IsPossessed => PossessingCharacter != null;
 
@@ -19,7 +18,7 @@ namespace Possession
 
         public string Name => name;
 
-        public abstract InteractionHighlight HighlightObject { get; protected set; }
+        public InteractionHighlight HighlightObject { get; protected set; }
 
         [SerializeField]
         [Range(0, 1)]
@@ -29,6 +28,11 @@ namespace Possession
 
         public float Willpower => willpower;
 
+        void Awake()
+        {
+            HighlightObject = GetComponentInChildren<InteractionHighlight>();
+        }
+
         public bool Possess(PossessionSystem possessingCharacter)
         {
             if (IsPossessed)
@@ -37,7 +41,7 @@ namespace Possession
             }
 
             PossessingCharacter = possessingCharacter;
-            OnPossessed();
+            Possessed?.Invoke();
 
             return true;
         }
@@ -50,7 +54,7 @@ namespace Possession
                 willpower += dWillpower;
                 willpower = Mathf.Clamp01(willpower);
                 WillpowerChanged?.Invoke(Willpower);
-                OnPossessionReleased();
+                PossessionReleased?.Invoke();
             }
         }
 
@@ -71,7 +75,7 @@ namespace Possession
             var interactersPossessionSystem = interacter.GetComponent<PossessionSystem>();
             if (interactersPossessionSystem == null)
             {
-                interactersPossessionSystem = interacter.GetComponent<IPossessable>()?.PossessingCharacter;
+                interactersPossessionSystem = interacter.GetComponentInChildren<IPossessable>()?.PossessingCharacter;
             }
 
             if (interactersPossessionSystem == null)
@@ -94,8 +98,5 @@ namespace Possession
             // Debug.Log($"Can no longer interact with '{Name}'");
             HighlightObject?.Hide();
         }
-
-        protected abstract void OnPossessed();
-        protected abstract void OnPossessionReleased();
     }
 }

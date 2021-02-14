@@ -17,7 +17,8 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
     {
         get
         {
-            return _possessionSystem.IsPossessing ? _possessionSystem.PossessedCharacter.MovementSystem : _movementSystem;
+            return _possessionSystem.IsPossessing ?
+                _possessionSystem.PossessedCharacter.Transform.GetComponentInParent<Possess_CharacterMovement>() : _movementSystem;
         }
     }
 
@@ -25,7 +26,8 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
     {
         get
         {
-            return _possessionSystem.IsPossessing ? _possessionSystem.PossessedCharacter.InteractionSystem : _interactionSystem;
+            return _possessionSystem.IsPossessing ?
+                _possessionSystem.PossessedCharacter.Transform.parent.GetComponentInChildren<CharacterInteraction>() : _interactionSystem;
         }
     }
 
