@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PhysicalForm: {fileID: 0}
   SpiritForm: {fileID: 3014773924344516827}
+  possessionPower: 0.4
 --- !u!114 &9009496187562192668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,7 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1947107290438139098, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
       propertyPath: m_Name
-      value: Spirit Player
+      value: Spirit Player Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2868458833325282143, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
       propertyPath: m_Materials.Array.data[0]

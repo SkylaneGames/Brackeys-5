@@ -12,7 +12,6 @@ namespace NPC
         {
             MovementSystem = GetComponent<Possess_CharacterMovement>();
             InteractionSystem = GetComponentInChildren<CharacterInteraction>();
-            Debug.Log($"Name: {name}, {InteractionSystem}");
         }
     }
 }

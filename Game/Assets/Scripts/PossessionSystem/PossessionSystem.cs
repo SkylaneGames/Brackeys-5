@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Possession
 {
+    [RequireComponent(typeof(Collider))]
     public class PossessionSystem : MonoBehaviour
     {
         public bool IsPossessing => PossessedCharacter != null;
@@ -16,6 +17,12 @@ namespace Possession
         public GameObject SpiritForm = null;
 
         private Possess_CameraFollow CameraSystem;
+
+        [SerializeField]
+        [Range(0,1)]
+        private float possessionPower = 0.4f;
+
+        public float PoessessionPower => possessionPower;
 
         public event Action CharacterPossessed;
         public event Action PossessionReleased;

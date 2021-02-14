@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Interaction;
@@ -25,8 +26,14 @@ public class PossessableNPC : NPCController, IPossessable, IInteractable
     public PossessionSystem PossessingCharacter { get; set; } = null;
 
     public Transform Transform => transform;
+    public event Action<float> WillpowerChanged;
 
     public string Name => name;
+
+    [SerializeField]
+    [Range(0, 1)]
+    private float willpower = 0.3f;
+    public float Willpower => willpower;
 
     public InteractionHighlight HighlightObject { get; set; }
 
@@ -49,11 +56,14 @@ public class PossessableNPC : NPCController, IPossessable, IInteractable
         return true;
     }
 
-    public void ReleasePossession()
+    public void ReleasePossession(float dWillpower = 0)
     {
         if (IsPossessed)
         {
             PossessingCharacter = null;
+            willpower += dWillpower;
+            willpower = Mathf.Clamp01(willpower);
+            WillpowerChanged?.Invoke(Willpower);
             OnPossessionReleased();
         }
     }
@@ -72,8 +82,19 @@ public class PossessableNPC : NPCController, IPossessable, IInteractable
 
     public bool CanInteract(GameObject interacter)
     {
-        return interacter.GetComponent<PossessionSystem>() != null ? true :
-            interacter.GetComponent<IPossessable>()?.PossessingCharacter != null;
+            var interactersPossessionSystem = interacter.GetComponent<PossessionSystem>();
+            if (interactersPossessionSystem == null)
+            {
+                interactersPossessionSystem = interacter.GetComponent<IPossessable>()?.PossessingCharacter;
+            }
+
+            if (interactersPossessionSystem == null)
+            {
+                return false;
+            }
+
+            // Characters can only possess characters whose willpower is lower than possession power.
+            return interactersPossessionSystem.PoessessionPower > Willpower;
     }
 
     public void Highlight()

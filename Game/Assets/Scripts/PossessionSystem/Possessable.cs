@@ -21,6 +21,14 @@ namespace Possession
 
         public abstract InteractionHighlight HighlightObject { get; protected set; }
 
+        [SerializeField]
+        [Range(0, 1)]
+        private float willpower = 0.3f;
+
+        public event Action<float> WillpowerChanged;
+
+        public float Willpower => willpower;
+
         public bool Possess(PossessionSystem possessingCharacter)
         {
             if (IsPossessed)
@@ -34,11 +42,14 @@ namespace Possession
             return true;
         }
 
-        public void ReleasePossession()
+        public void ReleasePossession(float dWillpower = 0)
         {
             if (IsPossessed)
             {
                 PossessingCharacter = null;
+                willpower += dWillpower;
+                willpower = Mathf.Clamp01(willpower);
+                WillpowerChanged?.Invoke(Willpower);
                 OnPossessionReleased();
             }
         }
@@ -57,8 +68,19 @@ namespace Possession
 
         public bool CanInteract(GameObject interacter)
         {
-            return interacter.GetComponent<PossessionSystem>() != null ? true :
-                interacter.GetComponent<IPossessable>()?.PossessingCharacter != null;
+            var interactersPossessionSystem = interacter.GetComponent<PossessionSystem>();
+            if (interactersPossessionSystem == null)
+            {
+                interactersPossessionSystem = interacter.GetComponent<IPossessable>()?.PossessingCharacter;
+            }
+
+            if (interactersPossessionSystem == null)
+            {
+                return false;
+            }
+
+            // Characters can only possess characters whose willpower is lower than possession power.
+            return interactersPossessionSystem.PoessessionPower > Willpower;
         }
 
         public void Highlight()
