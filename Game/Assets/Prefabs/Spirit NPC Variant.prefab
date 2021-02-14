@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &2512544386981896239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350263631404723552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79a74b15f7a74a144aa86832609ea153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &4294274130091872698
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1243027414894201559, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243027414894201559, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243027414894201559, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243027414894201559, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243027414894201559, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243027414894201559, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243027414894201559, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243027414894201559, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243027414894201559, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243027414894201559, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243027414894201559, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1947107290438139098, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_Name
+      value: Spirit NPC Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868458833325282143, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab6d1f8f322ce234fba7e1b47d182863, type: 2}
+    - target: {fileID: 7659403261959642309, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab6d1f8f322ce234fba7e1b47d182863, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+--- !u!1 &2350263631404723552 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1947107290438139098, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+  m_PrefabInstance: {fileID: 4294274130091872698}
+  m_PrefabAsset: {fileID: 0}
