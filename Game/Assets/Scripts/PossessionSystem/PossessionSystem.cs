@@ -37,7 +37,7 @@ namespace Possession
 
         public void Possess(IPossessable character)
         {
-            if (character.Possess())
+            if (character.Possess(this))
             {
                 if (PossessedCharacter != null)
                 {

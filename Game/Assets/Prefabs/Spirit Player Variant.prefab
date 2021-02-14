@@ -49,7 +49,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1243027414894201559, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.56
       objectReference: {fileID: 0}
     - target: {fileID: 1243027414894201559, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
       propertyPath: m_LocalRotation.w
@@ -81,7 +81,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1947107290438139098, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
       propertyPath: m_Name
-      value: Spirit Player Variant
+      value: Spirit Player
       objectReference: {fileID: 0}
     - target: {fileID: 2868458833325282143, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -89,7 +89,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 2fc64a491b73c1944aea4dfab2f533e1, type: 2}
     - target: {fileID: 4264765834230774017, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
       propertyPath: UseHighlights
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7659403261959642309, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
       propertyPath: m_Materials.Array.data[0]

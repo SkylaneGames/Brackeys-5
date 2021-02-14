@@ -11,11 +11,11 @@ public class CharacterInteraction : MonoBehaviour
 
     public IInteractable LastInteractable = null;
 
-    private void OnTriggerEnter(Collider collider)
+    private void OnTriggerStay(Collider collider)
     {
         var interactable = collider.GetComponent<IInteractable>();
 
-        if (interactable != null && interactable.CanInteract(transform.parent.gameObject))
+        if (interactable != null && interactable != LastInteractable && interactable.CanInteract(transform.parent.gameObject))
         {
             if (LastInteractable != null)
             {

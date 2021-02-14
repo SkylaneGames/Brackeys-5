@@ -71,6 +71,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ab6d1f8f322ce234fba7e1b47d182863, type: 2}
+    - target: {fileID: 4264765834230774017, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: UseHighlights
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7659403261959642309, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

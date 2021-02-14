@@ -6,6 +6,7 @@ namespace Interaction
     {
         string Name { get; }
         Transform Transform { get; }
+        InteractionHighlight HighlightObject { get; }
         void Interact(GameObject interacter);
         bool CanInteract(GameObject interacter);
         void Highlight();

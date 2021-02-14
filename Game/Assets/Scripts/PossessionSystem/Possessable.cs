@@ -11,25 +11,24 @@ namespace Possession
         public abstract Possess_CharacterMovement MovementSystem { get; protected set; }
         public abstract CharacterInteraction InteractionSystem { get; protected set; }
 
-        public bool IsPossessed { get; private set; }
+        public bool IsPossessed => PossessingCharacter != null;
+
+        public PossessionSystem PossessingCharacter { get; set; } = null;
 
         public Transform Transform => transform;
 
         public string Name => name;
 
+        public abstract InteractionHighlight HighlightObject { get; protected set; }
 
-        // public event Action Possessed;
-        // public event Action PossessionReleased;
-
-
-        public bool Possess()
+        public bool Possess(PossessionSystem possessingCharacter)
         {
             if (IsPossessed)
             {
                 return false;
             }
 
-            IsPossessed = true;
+            PossessingCharacter = possessingCharacter;
             OnPossessed();
 
             return true;
@@ -39,31 +38,39 @@ namespace Possession
         {
             if (IsPossessed)
             {
-                IsPossessed = false;
+                PossessingCharacter = null;
                 OnPossessionReleased();
             }
         }
 
         public void Interact(GameObject interacter)
         {
-            var interacterScript = interacter.GetComponent<PossessionSystem>();
+            var interactersPossessionSystem = interacter.GetComponent<PossessionSystem>();
+            if (interactersPossessionSystem == null)
+            {
+                interactersPossessionSystem = interacter.GetComponent<IPossessable>()?.PossessingCharacter;
+            }
 
-            interacterScript.Possess(this);
+            HighlightObject.Hide();
+            interactersPossessionSystem.Possess(this);
         }
 
         public bool CanInteract(GameObject interacter)
         {
-            return interacter.GetComponent<PossessionSystem>() != null;
+            return interacter.GetComponent<PossessionSystem>() != null ? true :
+                interacter.GetComponent<IPossessable>()?.PossessingCharacter != null;
         }
 
         public void Highlight()
         {
-            Debug.Log($"Can interact with '{Name}'");
+            // Debug.Log($"Can interact with '{Name}'");
+            HighlightObject?.Show();
         }
 
         public void RemoveHighlight()
         {
-            Debug.Log($"Can no longer interact with '{Name}'");
+            // Debug.Log($"Can no longer interact with '{Name}'");
+            HighlightObject?.Hide();
         }
 
         protected abstract void OnPossessed();

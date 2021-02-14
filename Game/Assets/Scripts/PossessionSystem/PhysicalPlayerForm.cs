@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Interaction;
 using UnityEngine;
 
 namespace Possession
@@ -10,6 +11,7 @@ namespace Possession
     {
         public override Possess_CharacterMovement MovementSystem { get; protected set; }
         public override CharacterInteraction InteractionSystem { get; protected set; }
+        public override InteractionHighlight HighlightObject { get; protected set; }
 
         protected override void OnPossessed()
         {
@@ -32,6 +34,7 @@ namespace Possession
         {
             MovementSystem = GetComponent<Possess_CharacterMovement>();
             InteractionSystem = GetComponentInChildren<CharacterInteraction>();
+            HighlightObject = GetComponentInChildren<InteractionHighlight>();
         }
     }
 }

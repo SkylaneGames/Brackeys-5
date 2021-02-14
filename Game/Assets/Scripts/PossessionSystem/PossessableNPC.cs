@@ -21,21 +21,29 @@ public class PossessableNPC : NPCController, IPossessable, IInteractable
         this.enabled = true;
     }
 
-    public bool IsPossessed { get; private set; }
+    public bool IsPossessed => PossessingCharacter != null;
+    public PossessionSystem PossessingCharacter { get; set; } = null;
 
     public Transform Transform => transform;
 
     public string Name => name;
 
+    public InteractionHighlight HighlightObject { get; set; }
 
-    public bool Possess()
+    protected override void Awake()
+    {
+        base.Awake();
+        HighlightObject = GetComponentInChildren<InteractionHighlight>();
+    }
+
+    public bool Possess(PossessionSystem possessingCharacter)
     {
         if (IsPossessed)
         {
             return false;
         }
 
-        IsPossessed = true;
+        PossessingCharacter = possessingCharacter;
         OnPossessed();
 
         return true;
@@ -45,30 +53,38 @@ public class PossessableNPC : NPCController, IPossessable, IInteractable
     {
         if (IsPossessed)
         {
-            IsPossessed = false;
+            PossessingCharacter = null;
             OnPossessionReleased();
         }
     }
 
     public void Interact(GameObject interacter)
     {
-        var interacterScript = interacter.GetComponent<PossessionSystem>();
+        var interactersPossessionSystem = interacter.GetComponent<PossessionSystem>();
+        if (interactersPossessionSystem == null)
+        {
+            interactersPossessionSystem = interacter.GetComponent<IPossessable>()?.PossessingCharacter;
+        }
 
-        interacterScript.Possess(this);
+        HighlightObject.Hide();
+        interactersPossessionSystem.Possess(this);
     }
 
     public bool CanInteract(GameObject interacter)
     {
-        return interacter.GetComponent<PossessionSystem>() != null;
+        return interacter.GetComponent<PossessionSystem>() != null ? true :
+            interacter.GetComponent<IPossessable>()?.PossessingCharacter != null;
     }
 
     public void Highlight()
     {
-        Debug.Log($"Can interact with '{Name}'");
+        // Debug.Log($"Can interact with '{Name}'");
+        HighlightObject?.Show();
     }
 
     public void RemoveHighlight()
     {
-        Debug.Log($"Can no longer interact with '{Name}'");
+        // Debug.Log($"Can no longer interact with '{Name}'");
+        HighlightObject?.Hide();
     }
 }

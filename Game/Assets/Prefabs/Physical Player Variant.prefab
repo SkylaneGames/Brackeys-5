@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c77e75b1c407454796d638d6c271e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PossessingCharacter: {fileID: 0}
 --- !u!1001 &3862531304514076243
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65,7 +66,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1947107290438139098, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
       propertyPath: m_Name
-      value: Physical Player
+      value: Physical Player Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264765834230774017, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: UseHighlights
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2867411ff224f4147be6d009eacdf628, type: 3}

@@ -10,9 +10,10 @@ namespace Possession
         Transform Transform { get; }
         Possess_CharacterMovement MovementSystem { get; }
         CharacterInteraction InteractionSystem { get; }
+        PossessionSystem PossessingCharacter { get; }
         bool IsPossessed { get; }
 
-        bool Possess();
+        bool Possess(PossessionSystem possessingCharacter);
         void ReleasePossession();
     }
 }

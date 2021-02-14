@@ -8,10 +8,11 @@ namespace NPC
         public Possess_CharacterMovement MovementSystem { get; protected set; }
         public CharacterInteraction InteractionSystem { get; protected set; }
 
-        void Awake()
+        protected virtual void Awake()
         {
             MovementSystem = GetComponent<Possess_CharacterMovement>();
             InteractionSystem = GetComponentInChildren<CharacterInteraction>();
+            Debug.Log($"Name: {name}, {InteractionSystem}");
         }
     }
 }
