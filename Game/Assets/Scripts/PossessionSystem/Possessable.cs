@@ -69,8 +69,7 @@ namespace Possession
                 return;
             }
 
-            HighlightObject.Hide();
-            interactersPossessionSystem.Possess(this, callback);
+            interactersPossessionSystem.Possess(this, () => {HighlightObject.Hide(); callback?.Invoke();});
         }
 
         public bool CanInteract(GameObject interacter)

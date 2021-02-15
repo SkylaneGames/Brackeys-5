@@ -138,6 +138,10 @@ namespace Possession
         {
             Debug.Log("repossession complete");
             animComplete = true;
+            
+            // PossessedCharacter = null;
+            PossessionReleased?.Invoke();
+            
             OnPossessionComplete();
         }
 
@@ -145,6 +149,8 @@ namespace Possession
         {
             Debug.Log("Unpossession complete");
             animComplete = true;
+
+            // PossessedCharacter = null;
             PossessionReleased?.Invoke();
             unpossessionCallback?.Invoke();
             unpossessionCallback = null;
@@ -156,9 +162,9 @@ namespace Possession
             {
                 return;
             }
-
+            
             PossessedCharacter.ReleasePossession();
-
+            
             // Handle spirit form
             if (!repossession)
             {
@@ -166,6 +172,7 @@ namespace Possession
                 transform.position = GetPositionAfterPossession();
                 ShowSpiritForm();
                 CameraSystem.Target = transform;
+                PossessedCharacter = null;
             }
             else
             {
@@ -173,8 +180,6 @@ namespace Possession
                 _animator.SetTrigger("Repossess");
             }
 
-            PossessedCharacter = null;
-            PossessionReleased?.Invoke();
         }
 
         private Vector3 GetPositionAfterPossession()

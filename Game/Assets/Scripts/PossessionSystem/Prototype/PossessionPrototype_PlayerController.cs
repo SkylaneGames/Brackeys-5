@@ -54,7 +54,7 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!InteractionSystem.IsInteracting && !isUnpossessing)
+        if (!InteractionSystem.IsInteracting && !_interactionSystem.IsInteracting && !isUnpossessing)
         {
             ProcessInput();
         }

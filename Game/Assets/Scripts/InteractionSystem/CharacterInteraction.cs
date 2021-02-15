@@ -20,7 +20,7 @@ public class CharacterInteraction : MonoBehaviour
         {
             Debug.Log($"'{transform.parent.name}' is interacting with '{LastInteractable.Name}'");
             IsInteracting = true;
-            LastInteractable.Interact(transform.parent.gameObject, () => {Debug.Log("Invoking callback"); IsInteracting = false;});
+            LastInteractable.Interact(transform.parent.gameObject, () => IsInteracting = false);
             LastInteractable = null;
         }
     }
