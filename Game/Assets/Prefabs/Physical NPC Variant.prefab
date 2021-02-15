@@ -63,6 +63,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6359453085447228040, guid: eac0c88ac45dd994fb9f82e022ae2b61, type: 3}
+      propertyPath: BaseResistance
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8275171495956262909, guid: eac0c88ac45dd994fb9f82e022ae2b61, type: 3}
       propertyPath: m_Name
       value: Possessable

@@ -6,20 +6,24 @@ using UnityEngine;
 
 namespace Combat
 {
-    public class LifeSystem : MonoBehaviour
+    public delegate void PlayerHit(int damage);
+    public delegate void HealthChanged(float normalisedValue);
+
+    [RequireComponent(typeof(Collider))]
+    public class HealthSystem : MonoBehaviour
     {
-        public event Action<int> PlayerDamaged;
-        public event Action PlayerDied;
+        public event HealthChanged HealthChanged;
+        public event PlayerHit CharacterHit;
+        public event Action CharacterBlocked;
+        public event Action CharacterKilled;
 
         public bool IsDead
         {
             get
             {
-                return CurrentHealth <= 0;
+                return CurrentHealth == 0;
             }
         }
-
-
 
         [Range(0, 1)]
         [Tooltip("The chance of armour reducing amount of damage taken. (Set to 1 to always remove armour rating from damage value)")]
@@ -29,27 +33,34 @@ namespace Combat
         [Tooltip("The chance armour will completely block an attack.")]
         public float armourBlockChance = 0.1f;
 
-        public IEnumerable<DamageInfo> ArmourResistances;
+        public List<DamageInfo> ArmourResistances;
 
+        [Range(0, 100)]
         public int MaxHealth = 10;
-        public int CurrentHealth { get; private set; }
 
-        private Animator animator;
-
-        void Awake()
+        private int currentHealth;
+        public int CurrentHealth
         {
-            animator = GetComponentInChildren<Animator>();
-            CurrentHealth = MaxHealth;
+            get { return currentHealth; }
+            private set
+            {
+                currentHealth = Mathf.Clamp(value, 0, MaxHealth);
+                HealthChanged?.Invoke((float)currentHealth / (float)MaxHealth);
+            }
         }
 
-        public void SetHealth(int hp)
+        void Start()
         {
-            CurrentHealth = Mathf.Clamp(hp, 0, MaxHealth);
-            PlayerDamaged?.Invoke(CurrentHealth);
+            CurrentHealth = MaxHealth;
         }
 
         public void Damage(DamageInfo damage)
         {
+            if (IsDead)
+            {
+                return;
+            }
+
             if (damage.Value < 0)
             {
                 Debug.LogWarning("Damange less than 0.");
@@ -58,18 +69,20 @@ namespace Combat
             var value = ApplyArmourRating(damage.Value, damage.DamageType);
             // Debug.Log(damage.Value + ", " + value);
 
-            CurrentHealth -= value;
-
-            if (CurrentHealth < 0)
+            if (value == 0)
             {
-                CurrentHealth = 0;
+                CharacterBlocked?.Invoke();
             }
-
-            PlayerDamaged?.Invoke(CurrentHealth);
-
-            if (CurrentHealth == 0)
+            else
             {
-                OnDeath();
+                CurrentHealth -= value;
+
+                CharacterHit?.Invoke(value);
+
+                if (IsDead)
+                {
+                    CharacterKilled?.Invoke();
+                }
             }
         }
 
@@ -93,13 +106,6 @@ namespace Combat
             }
 
             return damage;
-        }
-
-        private void OnDeath()
-        {
-
-            animator.SetTrigger("Death");
-            PlayerDied?.Invoke();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using Combat;
 using Interaction;
 using UnityEngine;
 
@@ -20,17 +21,28 @@ namespace Possession
 
         public InteractionHighlight HighlightObject { get; protected set; }
 
+        public float Rage
+        {
+            get { return CombatSystem.Rage; }
+            set { CombatSystem.Rage = value; }
+        }
+
         [SerializeField]
         [Range(0, 1)]
-        private float willpower = 0.3f;
+        private float BaseResistance = 0.2f;
 
-        public event Action<float> WillpowerChanged;
+        [SerializeField]
+        [Range(0, 1)]
+        private float RagePerPossession = 0.1f;
 
-        public float Willpower => willpower;
+        public float Resistance => BaseResistance + Rage;
+
+        private CombatSystem CombatSystem;
 
         void Awake()
         {
             HighlightObject = GetComponentInChildren<InteractionHighlight>();
+            CombatSystem = transform.parent.GetComponentInChildren<CombatSystem>();
         }
 
         public bool Possess(PossessionSystem possessingCharacter)
@@ -46,14 +58,15 @@ namespace Possession
             return true;
         }
 
-        public void ReleasePossession(float dWillpower = 0)
+        public void ReleasePossession(bool isOwnPhysicalForm)
         {
             if (IsPossessed)
             {
                 PossessingCharacter = null;
-                willpower += dWillpower;
-                willpower = Mathf.Clamp01(willpower);
-                WillpowerChanged?.Invoke(Willpower);
+                if (!isOwnPhysicalForm)
+                {
+                    Rage += RagePerPossession;
+                }
                 PossessionReleased?.Invoke();
             }
         }
@@ -69,11 +82,16 @@ namespace Possession
                 return;
             }
 
-            interactersPossessionSystem.Possess(this, () => {HighlightObject.Hide(); callback?.Invoke();});
+            interactersPossessionSystem.Possess(this, () => { HighlightObject.Hide(); callback?.Invoke(); });
         }
 
         public bool CanInteract(GameObject interacter)
         {
+            if (IsPossessed)
+            {
+                return false;
+            }
+
             var interactersPossessionSystem = GetPossessionSystem(interacter);
 
             if (interactersPossessionSystem == null)
@@ -81,8 +99,14 @@ namespace Possession
                 return false;
             }
 
-            // Characters can only possess characters whose willpower is lower than possession power.
-            return interactersPossessionSystem.PoessessionPower > Willpower;
+            // You can always possess your own form
+            if (interactersPossessionSystem.PhysicalForm == this)
+            {
+                return true;
+            }
+
+            // Characters can only possess characters whose rage level is lower than possession power
+            return interactersPossessionSystem.PoessessionPower > Resistance;
         }
 
         private PossessionSystem GetPossessionSystem(GameObject interacter)

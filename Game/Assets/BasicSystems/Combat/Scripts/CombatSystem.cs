@@ -5,28 +5,58 @@ using UnityEngine;
 
 namespace Combat
 {
+    public delegate void RageChanged(float normalisedValue);
+
+    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(HealthSystem))]
     public class CombatSystem : MonoBehaviour
     {
-        public event Action CombatFinished;
+        public event RageChanged RageChanged;
 
-        public Weapon Unarmed;
-        public Weapon EquipedWeapon = null;
+        [SerializeField]
+        [Range(0, 1)]
+        private float rage = 0;
 
-        [Range(0,1)]
-        public float Rage = 0;
-
-        public void OnCombatFinished()
+        public float Rage
         {
-            CombatFinished?.Invoke();
+            get { return rage; }
+            set
+            {
+                rage = Mathf.Clamp01(value);
+                RageChanged?.Invoke(rage);
+            }
         }
 
-        public void Attack(LifeSystem enemy)
-        {
-            var weaponDamage = EquipedWeapon?.Damage.ToArray() ?? Unarmed.Damage.ToArray();
+        private HealthSystem _healthSystem;
 
-            foreach (var damage in weaponDamage)
+        private void Awake()
+        {
+            _healthSystem = GetComponent<HealthSystem>();
+        }
+
+        public void TakeDamage(IEnumerable<DamageInfo> hits)
+        {
+            foreach (var damage in hits)
             {
-                enemy.Damage(damage);
+                var hitDamage = damage;
+
+                // Scale physical attacks based on rage.
+                if (damage.DamageType == DamageType.Physical)
+                {
+                    hitDamage.Value += Mathf.RoundToInt(hitDamage.Value * rage);
+                }
+
+                _healthSystem.Damage(hitDamage);
+            }
+        }
+
+        private void OnTriggerEnter(Collider collider)
+        {
+            var weapon = collider.GetComponent<PhysicalWeapon>();
+
+            if (weapon != null)
+            {
+                TakeDamage(weapon.Damage);
             }
         }
     }
