@@ -18,7 +18,7 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
         get
         {
             return _possessionSystem.IsPossessing ?
-                _possessionSystem.PossessedCharacter.Transform.GetComponentInParent<Possess_CharacterMovement>() : _movementSystem;
+                _possessionSystem.PossessedCharacter.Transform.GetComponent<Possess_CharacterMovement>() : _movementSystem;
         }
     }
 
@@ -27,12 +27,14 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
         get
         {
             return _possessionSystem.IsPossessing ?
-                _possessionSystem.PossessedCharacter.Transform.parent.GetComponentInChildren<CharacterInteraction>() : _interactionSystem;
+                _possessionSystem.PossessedCharacter.Transform.GetComponentInChildren<CharacterInteraction>() : _interactionSystem;
         }
     }
 
     public float Speed = 2f;
     public float angularSpeed = 2f;
+
+    private bool isInteracting = false;
 
     void Awake()
     {
@@ -52,7 +54,10 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ProcessInput();
+        if (!isInteracting)
+        {
+            ProcessInput();
+        }
     }
 
     void ProcessInput()
@@ -83,7 +88,8 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
 
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
-            _possessionSystem.ReleaseCurrentPossession();
+            isInteracting = true;
+            _possessionSystem.ReleaseCurrentPossession(callback: () => isInteracting = false);
         }
     }
 
@@ -91,8 +97,10 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
     {
         if (InteractionSystem.LastInteractable != null)
         {
+            isInteracting = true;
             Debug.Log($"Interacting with {InteractionSystem.LastInteractable.Name}");
-            InteractionSystem.LastInteractable.Interact(gameObject);
+
+            InteractionSystem.LastInteractable.Interact(gameObject, () => isInteracting = false);
         }
     }
 }

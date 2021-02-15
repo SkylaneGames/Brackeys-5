@@ -14,7 +14,7 @@ namespace Possession
 
         public PossessionSystem PossessingCharacter { get; set; } = null;
 
-        public Transform Transform => transform;
+        public Transform Transform => transform.parent;
 
         public string Name => name;
 
@@ -58,7 +58,7 @@ namespace Possession
             }
         }
 
-        public void Interact(GameObject interacter)
+        public void Interact(GameObject interacter, Action callback)
         {
             var interactersPossessionSystem = interacter.GetComponent<PossessionSystem>();
             if (interactersPossessionSystem == null)
@@ -67,7 +67,7 @@ namespace Possession
             }
 
             HighlightObject.Hide();
-            interactersPossessionSystem.Possess(this);
+            interactersPossessionSystem.Possess(this, callback);
         }
 
         public bool CanInteract(GameObject interacter)

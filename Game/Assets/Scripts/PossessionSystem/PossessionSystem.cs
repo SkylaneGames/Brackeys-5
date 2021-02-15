@@ -6,6 +6,8 @@ using UnityEngine;
 namespace Possession
 {
     [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Possess_CharacterMovement))]
     public class PossessionSystem : MonoBehaviour
     {
         public bool IsPossessing => PossessedCharacter != null;
@@ -27,8 +29,18 @@ namespace Possession
         public event Action CharacterPossessed;
         public event Action PossessionReleased;
 
+        protected Animator _animator;
+        protected Possess_CharacterMovement _movement;
+
+        private bool animComplete = true;
+
+        private Action currentInteractionCallback = null;
+
         void Awake()
         {
+            _animator = GetComponent<Animator>();
+            _movement = GetComponent<Possess_CharacterMovement>();
+
             CameraSystem = FindObjectOfType<Possess_CameraFollow>();
         }
 
@@ -42,39 +54,85 @@ namespace Possession
             }
         }
 
-        public void Possess(IPossessable character)
+        void FixedUpdate()
+        {
+            if (PossessedCharacter != null && animComplete)
+            {
+                transform.position = PossessedCharacter.Transform.position;
+                transform.rotation = PossessedCharacter.Transform.rotation;
+            }
+        }
+
+        public void Possess(IPossessable character, Action callback)
         {
             if (character.Possess(this))
             {
-                if (PossessedCharacter != null)
+                currentInteractionCallback = callback;
+                bool isRepossession = PossessedCharacter != null;
+                _movement.StopMoving();
+                var lookTarget = character.Transform.position;
+                lookTarget.y = transform.position.y;
+                transform.LookAt(lookTarget, Vector3.up);
+                if (isRepossession)
                 {
                     ReleaseCurrentPossession(true);
+                    animComplete = false;
                 }
 
                 PossessedCharacter = character;
-                CameraSystem.Target = PossessedCharacter.Transform.parent;
+                CameraSystem.Target = PossessedCharacter.Transform;
 
                 // Handle Spirit form
 
-                HideSpiritForm();
-                CharacterPossessed?.Invoke();
+                if (!isRepossession)
+                {
+                    HideSpiritForm();
+                }
             }
         }
 
         private void ShowSpiritForm()
         {
             // TODO: Change to use an animation (which will set this at the end of the animation)
-            SpiritForm.SetActive(true);
+            animComplete = false;
+            _animator.SetTrigger("Unpossess");
+            // SpiritForm.SetActive(true);
         }
 
         private void HideSpiritForm()
         {
             // TODO: Change to use an animation (which will set this at the end of the animation)
-            SpiritForm.SetActive(false);
+            animComplete = false;
+            _animator.SetTrigger("Possess");
+            // SpiritForm.SetActive(false);
             
         }
 
-        public void ReleaseCurrentPossession(bool repossession = false)
+        public void PossessionComplete()
+        {
+            animComplete = true;
+            CharacterPossessed?.Invoke();
+            currentInteractionCallback?.Invoke();
+            currentInteractionCallback = null;
+        }
+
+        public void RepossessionComplete()
+        {
+            animComplete = true;
+            CharacterPossessed?.Invoke();
+            currentInteractionCallback?.Invoke();
+            currentInteractionCallback = null;
+        }
+
+        public void UnpossessionComplete()
+        {
+            animComplete = true;
+            PossessionReleased?.Invoke();
+            currentInteractionCallback?.Invoke();
+            currentInteractionCallback = null;
+        }
+
+        public void ReleaseCurrentPossession(bool repossession = false, Action callback = null)
         {
             if (PossessedCharacter == null)
             {
@@ -86,13 +144,14 @@ namespace Possession
             // Handle spirit form
             if (!repossession)
             {
+                currentInteractionCallback = callback;
                 transform.position = GetPositionAfterPossession();
                 ShowSpiritForm();
                 CameraSystem.Target = transform;
             }
             else
             {
-                // TODO: Play an animation of the spirit jumping between bodies
+                _animator.SetTrigger("Repossess");
             }
 
             PossessedCharacter = null;
@@ -101,7 +160,7 @@ namespace Possession
 
         private Vector3 GetPositionAfterPossession()
         {
-            return PossessedCharacter.Transform.parent.position - PossessedCharacter.Transform.parent.forward;
+            return PossessedCharacter.Transform.position - PossessedCharacter.Transform.forward;
         }
     }
 }
