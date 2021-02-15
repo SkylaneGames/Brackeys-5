@@ -10,6 +10,12 @@ namespace Possession
     [RequireComponent(typeof(Possess_CharacterMovement))]
     public class PossessionSystem : MonoBehaviour
     {
+        private class PossessionArgs
+        {
+            public IPossessable character;
+            public Action callback;
+        }
+        
         public bool IsPossessing => PossessedCharacter != null;
 
         public IPossessable PossessedCharacter = null;
@@ -34,7 +40,9 @@ namespace Possession
 
         private bool animComplete = true;
 
-        private Action currentInteractionCallback = null;
+        private PossessionArgs nextPossession = null;
+
+        private Action unpossessionCallback = null;
 
         void Awake()
         {
@@ -67,20 +75,24 @@ namespace Possession
         {
             if (character.Possess(this))
             {
-                currentInteractionCallback = callback;
+                nextPossession = new PossessionArgs
+                {
+                    callback = callback,
+                    character = character
+                };
+
                 bool isRepossession = PossessedCharacter != null;
+
                 _movement.StopMoving();
+                
                 var lookTarget = character.Transform.position;
                 lookTarget.y = transform.position.y;
                 transform.LookAt(lookTarget, Vector3.up);
+                
                 if (isRepossession)
                 {
                     ReleaseCurrentPossession(true);
-                    animComplete = false;
                 }
-
-                PossessedCharacter = character;
-                CameraSystem.Target = PossessedCharacter.Transform;
 
                 // Handle Spirit form
 
@@ -93,43 +105,49 @@ namespace Possession
 
         private void ShowSpiritForm()
         {
-            // TODO: Change to use an animation (which will set this at the end of the animation)
             animComplete = false;
             _animator.SetTrigger("Unpossess");
-            // SpiritForm.SetActive(true);
         }
 
         private void HideSpiritForm()
         {
-            // TODO: Change to use an animation (which will set this at the end of the animation)
             animComplete = false;
             _animator.SetTrigger("Possess");
-            // SpiritForm.SetActive(false);
             
+        }
+
+        private void OnPossessionComplete()
+        {
+            CharacterPossessed?.Invoke();
+            
+            PossessedCharacter = nextPossession.character;
+            CameraSystem.Target = PossessedCharacter.Transform;
+
+            nextPossession.callback?.Invoke();
+            nextPossession = null;
         }
 
         public void PossessionComplete()
         {
+            Debug.Log("Possession complete");
             animComplete = true;
-            CharacterPossessed?.Invoke();
-            currentInteractionCallback?.Invoke();
-            currentInteractionCallback = null;
+            OnPossessionComplete();
         }
 
         public void RepossessionComplete()
         {
+            Debug.Log("repossession complete");
             animComplete = true;
-            CharacterPossessed?.Invoke();
-            currentInteractionCallback?.Invoke();
-            currentInteractionCallback = null;
+            OnPossessionComplete();
         }
 
         public void UnpossessionComplete()
         {
+            Debug.Log("Unpossession complete");
             animComplete = true;
             PossessionReleased?.Invoke();
-            currentInteractionCallback?.Invoke();
-            currentInteractionCallback = null;
+            unpossessionCallback?.Invoke();
+            unpossessionCallback = null;
         }
 
         public void ReleaseCurrentPossession(bool repossession = false, Action callback = null)
@@ -144,13 +162,14 @@ namespace Possession
             // Handle spirit form
             if (!repossession)
             {
-                currentInteractionCallback = callback;
+                unpossessionCallback = callback;
                 transform.position = GetPositionAfterPossession();
                 ShowSpiritForm();
                 CameraSystem.Target = transform;
             }
             else
             {
+                animComplete = false;
                 _animator.SetTrigger("Repossess");
             }
 

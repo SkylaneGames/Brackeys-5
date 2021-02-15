@@ -29,6 +29,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 3
   angularSpeed: 360
+--- !u!95 &-5883338429989331341
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5948683962144715277}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3ea1a3893e7fee1488c28f828f8ed982, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &5298620512892718807
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -82,7 +101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1947107290438139098, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
       propertyPath: m_Name
-      value: Spirit Player Variant
+      value: Spirit Player
       objectReference: {fileID: 0}
     - target: {fileID: 2868458833325282143, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
       propertyPath: m_Materials.Array.data[0]

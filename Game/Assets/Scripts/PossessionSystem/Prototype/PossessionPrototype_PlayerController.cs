@@ -33,8 +33,8 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
 
     public float Speed = 2f;
     public float angularSpeed = 2f;
+    private bool isUnpossessing = false;
 
-    private bool isInteracting = false;
 
     void Awake()
     {
@@ -54,7 +54,7 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isInteracting)
+        if (!InteractionSystem.IsInteracting && !isUnpossessing)
         {
             ProcessInput();
         }
@@ -88,19 +88,13 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
 
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
-            isInteracting = true;
-            _possessionSystem.ReleaseCurrentPossession(callback: () => isInteracting = false);
+            isUnpossessing = true;
+            _possessionSystem.ReleaseCurrentPossession(callback: () => isUnpossessing = false);
         }
     }
 
     public void Interact()
     {
-        if (InteractionSystem.LastInteractable != null)
-        {
-            isInteracting = true;
-            Debug.Log($"Interacting with {InteractionSystem.LastInteractable.Name}");
-
-            InteractionSystem.LastInteractable.Interact(gameObject, () => isInteracting = false);
-        }
+        InteractionSystem.Interact();
     }
 }

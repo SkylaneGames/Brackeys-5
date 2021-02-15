@@ -60,10 +60,13 @@ namespace Possession
 
         public void Interact(GameObject interacter, Action callback)
         {
-            var interactersPossessionSystem = interacter.GetComponent<PossessionSystem>();
+            var interactersPossessionSystem = GetPossessionSystem(interacter);
+
             if (interactersPossessionSystem == null)
             {
-                interactersPossessionSystem = interacter.GetComponent<IPossessable>()?.PossessingCharacter;
+                Debug.LogWarning($"No possession system found on {interacter.name}");
+                callback?.Invoke();
+                return;
             }
 
             HighlightObject.Hide();
@@ -72,11 +75,7 @@ namespace Possession
 
         public bool CanInteract(GameObject interacter)
         {
-            var interactersPossessionSystem = interacter.GetComponent<PossessionSystem>();
-            if (interactersPossessionSystem == null)
-            {
-                interactersPossessionSystem = interacter.GetComponentInChildren<IPossessable>()?.PossessingCharacter;
-            }
+            var interactersPossessionSystem = GetPossessionSystem(interacter);
 
             if (interactersPossessionSystem == null)
             {
@@ -85,6 +84,17 @@ namespace Possession
 
             // Characters can only possess characters whose willpower is lower than possession power.
             return interactersPossessionSystem.PoessessionPower > Willpower;
+        }
+
+        private PossessionSystem GetPossessionSystem(GameObject interacter)
+        {
+            var interactersPossessionSystem = interacter.GetComponent<PossessionSystem>();
+            if (interactersPossessionSystem == null)
+            {
+                interactersPossessionSystem = interacter.GetComponentInChildren<IPossessable>()?.PossessingCharacter;
+            }
+
+            return interactersPossessionSystem;
         }
 
         public void Highlight()
