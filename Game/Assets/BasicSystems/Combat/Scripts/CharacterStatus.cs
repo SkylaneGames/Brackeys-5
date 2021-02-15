@@ -6,26 +6,25 @@ using UnityEngine;
 namespace Combat
 {
     [RequireComponent(typeof(LifeSystem))]
+    [RequireComponent(typeof(CombatSystem))]
     public class CharacterStatus : MonoBehaviour
     {
         public LifeSystem LifeSystem { get; set; }
+        public CombatSystem CombatSystem { get; set; }
         public DetectionSystem DetectionSystem { get; set; }
-        public PossessionSystem PossessionSystem { get; set; }
+        public IPossessable Possessable { get; set; }
+
+        private StatusBar HealthBar;
+        private StatusBar RageBar;
 
         public GameObject StatusBarPrefab;
-
-        [Range(0,10)]
-        public int Willpower = 4;
-
-        [Range(0,10)]
-        public int Perception = 4;
-
-        [Range(0,10)]
-        public int Rage = 0;
 
         void Awake()
         {
             LifeSystem = GetComponent<LifeSystem>();
+            CombatSystem = GetComponent<CombatSystem>();
+            DetectionSystem = GetComponent<DetectionSystem>();
+            Possessable = transform.parent.GetComponentInChildren<IPossessable>();
         }
 
         // Start is called before the first frame update
