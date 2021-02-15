@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PhysicalForm: {fileID: 0}
   SpiritForm: {fileID: 3014773924344516827}
+  possessionPower: 0.4
 --- !u!114 &9009496187562192668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28,6 +29,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 3
   angularSpeed: 360
+--- !u!95 &-5883338429989331341
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5948683962144715277}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3ea1a3893e7fee1488c28f828f8ed982, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &5298620512892718807
 PrefabInstance:
   m_ObjectHideFlags: 0

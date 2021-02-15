@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Interaction;
@@ -10,6 +11,19 @@ public class CharacterInteraction : MonoBehaviour
     public bool UseHighlights = true;
 
     public IInteractable LastInteractable = null;
+
+    public bool IsInteracting { get; private set; } = false;
+
+    public void Interact()
+    {
+        if (LastInteractable != null)
+        {
+            Debug.Log($"'{transform.parent.name}' is interacting with '{LastInteractable.Name}'");
+            IsInteracting = true;
+            LastInteractable.Interact(transform.parent.gameObject, () => IsInteracting = false);
+            LastInteractable = null;
+        }
+    }
 
     private void OnTriggerStay(Collider collider)
     {
@@ -40,7 +54,7 @@ public class CharacterInteraction : MonoBehaviour
                 {
                     interactable.Highlight();
                 }
-                
+
                 LastInteractable = interactable;
             }
         }

@@ -4,22 +4,34 @@ using UnityEngine;
 
 namespace Possession
 {
-    [RequireComponent(typeof(Possess_CharacterMovement))]
     [RequireComponent(typeof(Collider))]
-    public abstract class Possessable : MonoBehaviour, IPossessable, IInteractable
+    public class Possessable : MonoBehaviour, IPossessable, IInteractable
     {
-        public abstract Possess_CharacterMovement MovementSystem { get; protected set; }
-        public abstract CharacterInteraction InteractionSystem { get; protected set; }
+        public event Action Possessed;
+        public event Action PossessionReleased;
 
         public bool IsPossessed => PossessingCharacter != null;
 
         public PossessionSystem PossessingCharacter { get; set; } = null;
 
-        public Transform Transform => transform;
+        public Transform Transform => transform.parent;
 
         public string Name => name;
 
-        public abstract InteractionHighlight HighlightObject { get; protected set; }
+        public InteractionHighlight HighlightObject { get; protected set; }
+
+        [SerializeField]
+        [Range(0, 1)]
+        private float willpower = 0.3f;
+
+        public event Action<float> WillpowerChanged;
+
+        public float Willpower => willpower;
+
+        void Awake()
+        {
+            HighlightObject = GetComponentInChildren<InteractionHighlight>();
+        }
 
         public bool Possess(PossessionSystem possessingCharacter)
         {
@@ -29,36 +41,59 @@ namespace Possession
             }
 
             PossessingCharacter = possessingCharacter;
-            OnPossessed();
+            Possessed?.Invoke();
 
             return true;
         }
 
-        public void ReleasePossession()
+        public void ReleasePossession(float dWillpower = 0)
         {
             if (IsPossessed)
             {
                 PossessingCharacter = null;
-                OnPossessionReleased();
+                willpower += dWillpower;
+                willpower = Mathf.Clamp01(willpower);
+                WillpowerChanged?.Invoke(Willpower);
+                PossessionReleased?.Invoke();
             }
         }
 
-        public void Interact(GameObject interacter)
+        public void Interact(GameObject interacter, Action callback)
         {
-            var interactersPossessionSystem = interacter.GetComponent<PossessionSystem>();
+            var interactersPossessionSystem = GetPossessionSystem(interacter);
+
             if (interactersPossessionSystem == null)
             {
-                interactersPossessionSystem = interacter.GetComponent<IPossessable>()?.PossessingCharacter;
+                Debug.LogWarning($"No possession system found on {interacter.name}");
+                callback?.Invoke();
+                return;
             }
 
-            HighlightObject.Hide();
-            interactersPossessionSystem.Possess(this);
+            interactersPossessionSystem.Possess(this, () => {HighlightObject.Hide(); callback?.Invoke();});
         }
 
         public bool CanInteract(GameObject interacter)
         {
-            return interacter.GetComponent<PossessionSystem>() != null ? true :
-                interacter.GetComponent<IPossessable>()?.PossessingCharacter != null;
+            var interactersPossessionSystem = GetPossessionSystem(interacter);
+
+            if (interactersPossessionSystem == null)
+            {
+                return false;
+            }
+
+            // Characters can only possess characters whose willpower is lower than possession power.
+            return interactersPossessionSystem.PoessessionPower > Willpower;
+        }
+
+        private PossessionSystem GetPossessionSystem(GameObject interacter)
+        {
+            var interactersPossessionSystem = interacter.GetComponent<PossessionSystem>();
+            if (interactersPossessionSystem == null)
+            {
+                interactersPossessionSystem = interacter.GetComponentInChildren<IPossessable>()?.PossessingCharacter;
+            }
+
+            return interactersPossessionSystem;
         }
 
         public void Highlight()
@@ -72,8 +107,5 @@ namespace Possession
             // Debug.Log($"Can no longer interact with '{Name}'");
             HighlightObject?.Hide();
         }
-
-        protected abstract void OnPossessed();
-        protected abstract void OnPossessionReleased();
     }
 }

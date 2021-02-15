@@ -17,7 +17,8 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
     {
         get
         {
-            return _possessionSystem.IsPossessing ? _possessionSystem.PossessedCharacter.MovementSystem : _movementSystem;
+            return _possessionSystem.IsPossessing ?
+                _possessionSystem.PossessedCharacter.Transform.GetComponent<Possess_CharacterMovement>() : _movementSystem;
         }
     }
 
@@ -25,12 +26,15 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
     {
         get
         {
-            return _possessionSystem.IsPossessing ? _possessionSystem.PossessedCharacter.InteractionSystem : _interactionSystem;
+            return _possessionSystem.IsPossessing ?
+                _possessionSystem.PossessedCharacter.Transform.GetComponentInChildren<CharacterInteraction>() : _interactionSystem;
         }
     }
 
     public float Speed = 2f;
     public float angularSpeed = 2f;
+    private bool isUnpossessing = false;
+
 
     void Awake()
     {
@@ -50,7 +54,10 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ProcessInput();
+        if (!InteractionSystem.IsInteracting && !_interactionSystem.IsInteracting && !isUnpossessing)
+        {
+            ProcessInput();
+        }
     }
 
     void ProcessInput()
@@ -81,16 +88,13 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
 
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
-            _possessionSystem.ReleaseCurrentPossession();
+            isUnpossessing = true;
+            _possessionSystem.ReleaseCurrentPossession(callback: () => isUnpossessing = false);
         }
     }
 
     public void Interact()
     {
-        if (InteractionSystem.LastInteractable != null)
-        {
-            Debug.Log($"Interacting with {InteractionSystem.LastInteractable.Name}");
-            InteractionSystem.LastInteractable.Interact(gameObject);
-        }
+        InteractionSystem.Interact();
     }
 }
