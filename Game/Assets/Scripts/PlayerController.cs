@@ -5,12 +5,14 @@ using Possession;
 using Interaction;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Combat;
 
 [RequireComponent(typeof(Possess_CharacterMovement))]
-public class PossessionPrototype_PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     private Possess_CharacterMovement _movementSystem;
     private CharacterInteraction _interactionSystem;
+    private CharacterStatus _statusSystem;
     private PossessionSystem _possessionSystem;
 
     public Possess_CharacterMovement MovementSystem
@@ -31,6 +33,15 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
         }
     }
 
+    public CharacterStatus StatusSystem
+    {
+        get
+        {
+            return _possessionSystem.IsPossessing ?
+                _possessionSystem.PossessedCharacter.Transform.GetComponentInChildren<CharacterStatus>() : _statusSystem;
+        }
+    }
+
     public float Speed = 2f;
     public float angularSpeed = 2f;
     private bool isUnpossessing = false;
@@ -40,6 +51,7 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
     {
         _movementSystem = GetComponent<Possess_CharacterMovement>();
         _interactionSystem = GetComponentInChildren<CharacterInteraction>();
+        _statusSystem = GetComponentInChildren<CharacterStatus>();
         _possessionSystem = GetComponent<PossessionSystem>();
 
         _possessionSystem.CharacterPossessed += () => _interactionSystem.UseHighlights = false;
@@ -84,6 +96,15 @@ public class PossessionPrototype_PlayerController : MonoBehaviour
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             Interact();
+        }
+
+        if (Keyboard.current.hKey.wasPressedThisFrame)
+        {
+            StatusSystem.HealthSystem.Damage(new DamageInfo
+            {
+                DamageType = DamageType.Physical,
+                Value = 5
+            });
         }
 
         if (Keyboard.current.rKey.wasPressedThisFrame)

@@ -163,7 +163,9 @@ namespace Possession
                 return;
             }
             
-            PossessedCharacter.ReleasePossession();
+            // Is this the characters own physical form? If not, enrage it.
+            var isOwnPhysicalForm = (IPossessable)PhysicalForm == PossessedCharacter;
+            PossessedCharacter.ReleasePossession(isOwnPhysicalForm);
             
             // Handle spirit form
             if (!repossession)

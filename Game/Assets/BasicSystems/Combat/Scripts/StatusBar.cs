@@ -14,15 +14,16 @@ namespace Combat
         [Tooltip("Number of seconds to display the health bar for after being hit. (Set 0 for it to always be visible)")]
         public float displayForSeconds = 3f;
 
-        private float duration;
+        private float duration = 0;
 
         private Slider slider;
 
-        private void UpdateValue(float value)
+        public void UpdateValue(float normalisedValue)
         {
-            slider.value = value;
+            slider.value = Mathf.Clamp01(normalisedValue);
             fill.color = gradient.Evaluate(slider.normalizedValue);
             gameObject.SetActive(slider.normalizedValue < 1);
+            duration = displayForSeconds;
         }
 
         void Awake()
