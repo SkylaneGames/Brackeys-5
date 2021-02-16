@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 public class CharacterMovement : MonoBehaviour
 {
 
+    public float smooth;
+    public float Speed = 5f;
     Rigidbody body;
     Vector3 currentTranslation;
     CharacterAnimation animation;
@@ -17,11 +19,19 @@ public class CharacterMovement : MonoBehaviour
         animation = GetComponent<CharacterAnimation>();
     }
 
+
+    void Update(){
+        
+    }
     void FixedUpdate(){
         body.velocity = currentTranslation;
-        transform.Rotate(0f, rotation, 0f, Space.Self);
-        currentTranslation = Vector3.zero;
-        rotation = 0f;
+        if(body.velocity.magnitude>0.5f){
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(body.velocity.x, 0, body.velocity.z).normalized), smooth * Time.deltaTime) ;
+            //transform.rotation = Quaternion.LookRotation(new Vector3(body.velocity.x, 0, body.velocity.z).normalized);
+        }
+        //transform.Rotate(0f, rotation, 0f, Space.Self);
+        //currentTranslation = Vector3.zero;
+        //rotation = 0f;
     }
 
     void LateUpdate(){
@@ -31,10 +41,12 @@ public class CharacterMovement : MonoBehaviour
         else{
             animation.StopMoving();
         }
+
+        
     }
   
-    public void UpdateMovement(Vector3 translation, float newRotation){
-        currentTranslation = translation;
-        rotation = newRotation;
+    public void UpdateMovement(Vector3 translation){
+        currentTranslation = translation * Speed;
+        //rotation = newRotation;
     }
 }
