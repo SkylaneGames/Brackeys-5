@@ -1,72 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Possession;
-using Interaction;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Combat;
 
 [RequireComponent(typeof(Possess_CharacterMovement))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : SpiritController
 {
-    private Possess_CharacterMovement _movementSystem;
-    private CharacterInteraction _interactionSystem;
-    private PossessionSystem _possessionSystem;
-    private CombatSystem _combatSystem;
-
-    public Possess_CharacterMovement MovementSystem
-    {
-        get
-        {
-            return _possessionSystem.IsPossessing ?
-                _possessionSystem.PossessedCharacter.Transform.GetComponent<Possess_CharacterMovement>() : _movementSystem;
-        }
-    }
-
-    public CharacterInteraction InteractionSystem
-    {
-        get
-        {
-            return _possessionSystem.IsPossessing ?
-                _possessionSystem.PossessedCharacter.Transform.GetComponentInChildren<CharacterInteraction>() : _interactionSystem;
-        }
-    }
-
-    public CombatSystem CombatSystem
-    {
-        get
-        {
-            return _possessionSystem.IsPossessing ?
-                _possessionSystem.PossessedCharacter.Transform.GetComponentInChildren<CombatSystem>() : _combatSystem;
-        }
-    }
-
-    public float Speed = 2f;
-    public float angularSpeed = 2f;
-    private bool isUnpossessing = false;
-
-
-    void Awake()
-    {
-        _movementSystem = GetComponent<Possess_CharacterMovement>();
-        _interactionSystem = GetComponentInChildren<CharacterInteraction>();
-        _combatSystem = GetComponentInChildren<CombatSystem>();
-        _possessionSystem = GetComponent<PossessionSystem>();
-
-        _possessionSystem.CharacterPossessed += () => _interactionSystem.UseHighlights = false;
-        _possessionSystem.PossessionReleased += () => _interactionSystem.UseHighlights = true;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        if (!InteractionSystem.IsInteracting && !_interactionSystem.IsInteracting && !isUnpossessing)
+        base.Update();
+
+        if (!IsBusy)
         {
             ProcessInput();
         }
@@ -77,18 +21,18 @@ public class PlayerController : MonoBehaviour
         var speed = 0f;
         if (Keyboard.current.wKey.isPressed)
         {
-            speed = Speed;
+            speed = 1f;
         }
 
         var rotation = 0f;
         if (Keyboard.current.aKey.isPressed)
         {
-            rotation -= angularSpeed;
+            rotation -= 1f;
         }
 
         if (Keyboard.current.dKey.isPressed)
         {
-            rotation += angularSpeed;
+            rotation += 1f;
         }
 
         MovementSystem.ProcessInput(speed, rotation);
@@ -105,13 +49,7 @@ public class PlayerController : MonoBehaviour
 
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
-            isUnpossessing = true;
-            _possessionSystem.ReleaseCurrentPossession(callback: () => isUnpossessing = false);
+            UnPossess();
         }
-    }
-
-    public void Interact()
-    {
-        InteractionSystem.Interact();
     }
 }
