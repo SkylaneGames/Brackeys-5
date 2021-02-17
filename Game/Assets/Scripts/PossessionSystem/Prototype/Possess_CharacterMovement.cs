@@ -8,17 +8,8 @@ public class Possess_CharacterMovement : MonoBehaviour
     float currentSpeed = 0f;
     float currentRotation = 0f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float Speed = 3f;
+    public float AngularSpeed = 360f;
 
     void FixedUpdate()
     {
@@ -26,10 +17,10 @@ public class Possess_CharacterMovement : MonoBehaviour
         transform.Translate(Vector3.forward * currentSpeed * Time.deltaTime);
     }
 
-    public void ProcessInput(float speed, float rotation)
+    public void ProcessInput(float dForward, float dRotation)
     {
-        currentSpeed = speed;
-        currentRotation = rotation;
+        currentSpeed = dForward * Speed;
+        currentRotation = dRotation * AngularSpeed;
     }
 
     public void StopMoving()

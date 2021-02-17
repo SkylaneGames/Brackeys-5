@@ -15,8 +15,6 @@ namespace Possession
 
         public PossessionSystem PossessingCharacter { get; set; } = null;
 
-        public Transform Transform => transform.parent;
-
         public string Name => name;
 
         public InteractionHighlight HighlightObject { get; protected set; }
@@ -37,10 +35,15 @@ namespace Possession
 
         public float Resistance => BaseResistance + Rage;
 
+        public CharacterController Controller { get; private set; }
+
+        public Transform Transform => Controller.transform;
+
         private CombatSystem CombatSystem;
 
         void Awake()
         {
+            Controller = GetComponentInParent<CharacterController>();
             HighlightObject = GetComponentInChildren<InteractionHighlight>();
             CombatSystem = transform.parent.GetComponentInChildren<CombatSystem>();
         }
