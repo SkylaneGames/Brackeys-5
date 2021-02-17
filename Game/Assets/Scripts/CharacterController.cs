@@ -36,7 +36,6 @@ public abstract class CharacterController : MonoBehaviour
         get { return isBusy; }
     }
 
-    protected bool ShowHightlightsOriginal;
     public bool ShowHightlights = false;
 
     protected virtual void Awake()
@@ -44,8 +43,6 @@ public abstract class CharacterController : MonoBehaviour
         _movementSystem = GetComponent<Possess_CharacterMovement>();
         _interactionSystem = GetComponentInChildren<CharacterInteraction>();
         _combatSystem = GetComponentInChildren<CombatSystem>();
-
-        ShowHightlightsOriginal = ShowHightlights;
     }
 
     // Start is called before the first frame update
@@ -59,7 +56,7 @@ public abstract class CharacterController : MonoBehaviour
     {
 
     }
-    
+
     public void Interact()
     {
         InteractionSystem.Interact();

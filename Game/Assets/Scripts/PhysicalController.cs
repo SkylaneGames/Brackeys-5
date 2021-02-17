@@ -20,7 +20,7 @@ public class PhysicalController : CharacterController
         MovementSystem.StopMoving();
 
         // Set the highlights values back to what it was before.
-        InteractionSystem.UseHighlights = ShowHightlightsOriginal;
+        InteractionSystem.UseHighlights = ShowHightlights;
 
         // Re-enable the update sections
         this.enabled = true;

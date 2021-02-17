@@ -58,7 +58,7 @@ public class SpiritController : CharacterController
         base.InteractionSystem.UseHighlights = ShowHightlights;
         
         _possessionSystem.CharacterPossessed += () => base.InteractionSystem.UseHighlights = false;
-        _possessionSystem.PossessionReleased += () => base.InteractionSystem.UseHighlights = true;
+        _possessionSystem.PossessionReleased += () => base.InteractionSystem.UseHighlights = ShowHightlights;
     }
 
     protected void UnPossess()
