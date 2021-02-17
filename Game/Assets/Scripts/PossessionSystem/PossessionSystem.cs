@@ -35,7 +35,8 @@ namespace Possession
         public event Action PossessionReleased;
 
         protected Animator _animator;
-        protected Possess_CharacterMovement _movement;
+
+        public CharacterController Controller { get; set; }
 
         private bool animComplete = true;
 
@@ -46,7 +47,7 @@ namespace Possession
         void Awake()
         {
             _animator = GetComponent<Animator>();
-            _movement = GetComponent<Possess_CharacterMovement>();
+            Controller = GetComponent<CharacterController>();
 
             CameraSystem = FindObjectOfType<Possess_CameraFollow>();
         }
@@ -57,7 +58,7 @@ namespace Possession
             if (PossessedCharacter != null)
             {
                 HideSpiritForm();
-                CameraSystem.Target = PossessedCharacter.Transform;
+                CameraSystem.Target = PossessedCharacter.Controller.transform;
             }
         }
 
@@ -65,8 +66,8 @@ namespace Possession
         {
             if (PossessedCharacter != null && animComplete)
             {
-                transform.position = PossessedCharacter.Transform.position;
-                transform.rotation = PossessedCharacter.Transform.rotation;
+                transform.position = PossessedCharacter.Controller.transform.position;
+                transform.rotation = PossessedCharacter.Controller.transform.rotation;
             }
         }
 
@@ -82,9 +83,9 @@ namespace Possession
 
                 bool isRepossession = PossessedCharacter != null;
 
-                _movement.StopMoving();
+                Controller.MovementSystem.StopMoving();
                 
-                var lookTarget = character.Transform.position;
+                var lookTarget = character.Controller.transform.position;
                 lookTarget.y = transform.position.y;
                 transform.LookAt(lookTarget, Vector3.up);
                 
@@ -120,7 +121,7 @@ namespace Possession
             CharacterPossessed?.Invoke();
             
             PossessedCharacter = nextPossession.character;
-            CameraSystem.Target = PossessedCharacter.Transform;
+            CameraSystem.Target = PossessedCharacter.Controller.transform;
 
             nextPossession.callback?.Invoke();
             nextPossession = null;
@@ -184,7 +185,7 @@ namespace Possession
 
         private Vector3 GetPositionAfterPossession()
         {
-            return PossessedCharacter.Transform.position - PossessedCharacter.Transform.forward;
+            return PossessedCharacter.Controller.transform.position - PossessedCharacter.Controller.transform.forward;
         }
     }
 }

@@ -6,6 +6,7 @@ public enum CharacterType
     Physical, Spirit
 }
 
+[RequireComponent(typeof(Possess_CharacterMovement))]
 public abstract class CharacterController : MonoBehaviour
 {
     private Possess_CharacterMovement _movementSystem;
@@ -35,26 +36,32 @@ public abstract class CharacterController : MonoBehaviour
         get { return isBusy; }
     }
 
+    protected bool ShowHightlightsOriginal;
+    public bool ShowHightlights = false;
+
     protected virtual void Awake()
     {
         _movementSystem = GetComponent<Possess_CharacterMovement>();
         _interactionSystem = GetComponentInChildren<CharacterInteraction>();
         _combatSystem = GetComponentInChildren<CombatSystem>();
-    }
-    public void Interact()
-    {
-        InteractionSystem.Interact();
+
+        ShowHightlightsOriginal = ShowHightlights;
     }
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
-
+        InteractionSystem.UseHighlights = ShowHightlights;
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
 
+    }
+    
+    public void Interact()
+    {
+        InteractionSystem.Interact();
     }
 }

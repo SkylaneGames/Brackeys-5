@@ -15,10 +15,7 @@ public class SpiritController : CharacterController
         get
         {
             return _possessionSystem.IsPossessing ?
-                _possessionSystem
-                    .PossessedCharacter
-                    .Transform
-                    .GetComponent<Possess_CharacterMovement>()
+                _possessionSystem.PossessedCharacter.Controller.MovementSystem
                 : base.MovementSystem;
         }
     }
@@ -28,10 +25,7 @@ public class SpiritController : CharacterController
         get
         {
             return _possessionSystem.IsPossessing ?
-                _possessionSystem
-                    .PossessedCharacter
-                    .Transform
-                    .GetComponentInChildren<CharacterInteraction>()
+                _possessionSystem.PossessedCharacter.Controller.InteractionSystem
                 : base.InteractionSystem;
         }
     }
@@ -41,10 +35,7 @@ public class SpiritController : CharacterController
         get
         {
             return _possessionSystem.IsPossessing ?
-                _possessionSystem
-                    .PossessedCharacter
-                    .Transform
-                    .GetComponentInChildren<CombatSystem>()
+                _possessionSystem.PossessedCharacter.Controller.CombatSystem
                 : base.CombatSystem;
         }
     }
@@ -60,7 +51,12 @@ public class SpiritController : CharacterController
         base.Awake();
 
         _possessionSystem = GetComponent<PossessionSystem>();
+    }
 
+    protected override void Start()
+    {
+        base.InteractionSystem.UseHighlights = ShowHightlights;
+        
         _possessionSystem.CharacterPossessed += () => base.InteractionSystem.UseHighlights = false;
         _possessionSystem.PossessionReleased += () => base.InteractionSystem.UseHighlights = true;
     }

@@ -8,9 +8,9 @@ namespace Possession
         event Action Possessed;
         event Action PossessionReleased;
 
-        Transform Transform { get; }
+        CharacterController Controller { get; }
         float Rage { get; }
-        
+
         PossessionSystem PossessingCharacter { get; }
         bool IsPossessed { get; }
 
