@@ -28,10 +28,23 @@ namespace Combat
         }
 
         private HealthSystem _healthSystem;
+        
+        private Animator _animator;
 
         private void Awake()
         {
             _healthSystem = GetComponent<HealthSystem>();
+            Debug.Log($"[{name}] {_animator} animator on {transform.parent.name}");
+            if (_animator == null)
+            {
+                _animator = _animator ?? transform.parent.GetComponent<Animator>();
+            }
+            Debug.Log($"[{name}] {_animator} animator on {transform.parent.name}");
+        }
+
+        public void Attack()
+        {
+            _animator.SetTrigger("Attack");
         }
 
         public void TakeDamage(IEnumerable<DamageInfo> hits)
@@ -56,6 +69,7 @@ namespace Combat
 
             if (weapon != null)
             {
+                Debug.Log($"[{name}] Weapon hit, damage: {weapon.Damage}");
                 TakeDamage(weapon.Damage);
             }
         }

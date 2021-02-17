@@ -12,8 +12,8 @@ public class PlayerController : MonoBehaviour
 {
     private Possess_CharacterMovement _movementSystem;
     private CharacterInteraction _interactionSystem;
-    private CharacterStatus _statusSystem;
     private PossessionSystem _possessionSystem;
+    private CombatSystem _combatSystem;
 
     public Possess_CharacterMovement MovementSystem
     {
@@ -33,12 +33,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public CharacterStatus StatusSystem
+    public CombatSystem CombatSystem
     {
         get
         {
             return _possessionSystem.IsPossessing ?
-                _possessionSystem.PossessedCharacter.Transform.GetComponentInChildren<CharacterStatus>() : _statusSystem;
+                _possessionSystem.PossessedCharacter.Transform.GetComponentInChildren<CombatSystem>() : _combatSystem;
         }
     }
 
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
     {
         _movementSystem = GetComponent<Possess_CharacterMovement>();
         _interactionSystem = GetComponentInChildren<CharacterInteraction>();
-        _statusSystem = GetComponentInChildren<CharacterStatus>();
+        _combatSystem = GetComponentInChildren<CombatSystem>();
         _possessionSystem = GetComponent<PossessionSystem>();
 
         _possessionSystem.CharacterPossessed += () => _interactionSystem.UseHighlights = false;
@@ -98,13 +98,9 @@ public class PlayerController : MonoBehaviour
             Interact();
         }
 
-        if (Keyboard.current.hKey.wasPressedThisFrame)
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            StatusSystem.HealthSystem.Damage(new DamageInfo
-            {
-                DamageType = DamageType.Physical,
-                Value = 5
-            });
+            CombatSystem.Attack();
         }
 
         if (Keyboard.current.rKey.wasPressedThisFrame)

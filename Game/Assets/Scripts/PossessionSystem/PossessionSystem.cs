@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Possession
 {
-    [RequireComponent(typeof(Collider))]
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Possess_CharacterMovement))]
     public class PossessionSystem : MonoBehaviour
@@ -181,7 +180,6 @@ namespace Possession
                 animComplete = false;
                 _animator.SetTrigger("Repossess");
             }
-
         }
 
         private Vector3 GetPositionAfterPossession()

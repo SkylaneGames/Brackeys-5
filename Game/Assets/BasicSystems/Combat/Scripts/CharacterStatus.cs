@@ -5,24 +5,22 @@ using UnityEngine;
 
 namespace Combat
 {
-    [RequireComponent(typeof(HealthSystem))]
-    [RequireComponent(typeof(CombatSystem))]
     public class CharacterStatus : MonoBehaviour
     {
-        public HealthSystem HealthSystem { get; set; }
-        public CombatSystem CombatSystem { get; set; }
-        public DetectionSystem DetectionSystem { get; set; }
-        public IPossessable Possessable { get; set; }
+        public HealthSystem HealthSystem;
+        public CombatSystem CombatSystem;
+        public DetectionSystem DetectionSystem;
+        public IPossessable Possessable;
 
         public StatusBar HealthBar;
         public StatusBar RageBar;
 
         void Awake()
         {
-            HealthSystem = GetComponent<HealthSystem>();
-            CombatSystem = GetComponent<CombatSystem>();
-            DetectionSystem = GetComponent<DetectionSystem>();
-            Possessable = transform.parent.GetComponentInChildren<IPossessable>();
+            HealthSystem = HealthSystem ?? transform.parent.GetComponentInChildren<HealthSystem>();
+            CombatSystem = CombatSystem ?? transform.parent.GetComponentInChildren<CombatSystem>();
+            DetectionSystem = DetectionSystem ?? transform.parent.GetComponentInChildren<DetectionSystem>();
+            Possessable = Possessable ?? transform.parent.GetComponentInChildren<IPossessable>();
 
             HealthSystem.HealthChanged += (health) => HealthBar.UpdateValue(health);
             CombatSystem.RageChanged += (rage) => RageBar.UpdateValue(rage);
