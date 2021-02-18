@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using Interaction;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -54,13 +55,17 @@ public class PlayerInput : MonoBehaviour
             //var direction = new Vector3(transform.position.x - FreeLookCamera.transform.position.x, 0, transform.position.z - FreeLookCamera.transform.position.z);
             var direction = sceneCamera.transform.forward;
             direction.y=0;
-            var resultVector = transform.position + direction;
-            resultVector.y = 0f;
+            //var resultVector = transform.position + direction;
+            //resultVector.y = 0f;
             //var newRotation = Quaternion.FromToRotation(transform.forward.normalized, resultVector.normalized);
             var newRotation = Quaternion.LookRotation(direction.normalized,Vector3.up);
-            Debug.Log(newRotation.eulerAngles);
+            //Debug.Log(newRotation.eulerAngles);
             //transform.LookAt(resultVector, Vector3.zero);
             translation = newRotation * translation;
+        }
+
+        if(keyboard.eKey.wasPressedThisFrame){
+            
         }
         
         movement.UpdateMovement(translation.normalized);

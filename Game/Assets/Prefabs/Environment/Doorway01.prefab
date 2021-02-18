@@ -92,7 +92,7 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1566979658391864}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 2.5, y: 2.5210001, z: 0.14400001}
@@ -101,6 +101,35 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 2.5210001, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &8822875240992248998
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807404341637163887}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.7595367, y: 3.2047508, z: 0.1557302}
+  m_Center: {x: -0.8797684, y: 1.6023754, z: -0.02409438}
+--- !u!111 &5912813226227357645
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807404341637163887}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 468cf256a4719c34587c17dd31ea051d, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 468cf256a4719c34587c17dd31ea051d, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1001 &807404341637333747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -111,6 +140,18 @@ PrefabInstance:
     - target: {fileID: 175432, guid: 8f8b4c2ea7db39f4781dead27f8b1c3d, type: 3}
       propertyPath: m_Name
       value: Door02
+      objectReference: {fileID: 0}
+    - target: {fileID: 460866, guid: 8f8b4c2ea7db39f4781dead27f8b1c3d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 460866, guid: 8f8b4c2ea7db39f4781dead27f8b1c3d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 460866, guid: 8f8b4c2ea7db39f4781dead27f8b1c3d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 472910, guid: 8f8b4c2ea7db39f4781dead27f8b1c3d, type: 3}
       propertyPath: m_RootOrder
@@ -160,11 +201,17 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5691789677102657525, guid: 8f8b4c2ea7db39f4781dead27f8b1c3d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8f8b4c2ea7db39f4781dead27f8b1c3d, type: 3}
 --- !u!4 &807404341637019069 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 472910, guid: 8f8b4c2ea7db39f4781dead27f8b1c3d, type: 3}
+  m_PrefabInstance: {fileID: 807404341637333747}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &807404341637163887 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 190876, guid: 8f8b4c2ea7db39f4781dead27f8b1c3d, type: 3}
   m_PrefabInstance: {fileID: 807404341637333747}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4369262457107023313
