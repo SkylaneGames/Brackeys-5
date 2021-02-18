@@ -1,9 +1,14 @@
 using Combat;
 using Possession;
+using UnityEngine;
 
+[RequireComponent(typeof(PossessionSystem))]
 public class SpiritController : CharacterController
 {
     private PossessionSystem _possessionSystem;
+
+    [SerializeField]
+    private GameObject body;
 
     public PossessionSystem PossessionSystem
     {
@@ -65,5 +70,10 @@ public class SpiritController : CharacterController
     {
         isUnpossessing = true;
         _possessionSystem.ReleaseCurrentPossession(callback: () => isUnpossessing = false);
+    }
+
+    public void SetVisibility(bool visible)
+    {
+        body.SetActive(visible);
     }
 }

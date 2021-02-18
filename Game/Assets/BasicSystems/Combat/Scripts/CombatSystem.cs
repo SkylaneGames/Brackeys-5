@@ -34,12 +34,10 @@ namespace Combat
         private void Awake()
         {
             _healthSystem = GetComponent<HealthSystem>();
-            Debug.Log($"[{name}] {_animator} animator on {transform.parent.name}");
             if (_animator == null)
             {
                 _animator = _animator ?? transform.parent.GetComponent<Animator>();
             }
-            Debug.Log($"[{name}] {_animator} animator on {transform.parent.name}");
         }
 
         public void Attack()

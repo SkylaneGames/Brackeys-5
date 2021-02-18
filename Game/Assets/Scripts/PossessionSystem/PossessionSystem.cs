@@ -21,8 +21,6 @@ namespace Possession
 
         public Possessable PhysicalForm = null;
 
-        public GameObject SpiritForm = null;
-
         private Possess_CameraFollow CameraSystem;
 
         [SerializeField]
@@ -139,9 +137,6 @@ namespace Possession
             Debug.Log("repossession complete");
             animComplete = true;
             
-            // PossessedCharacter = null;
-            PossessionReleased?.Invoke();
-            
             OnPossessionComplete();
         }
 
@@ -150,8 +145,6 @@ namespace Possession
             Debug.Log("Unpossession complete");
             animComplete = true;
 
-            // PossessedCharacter = null;
-            PossessionReleased?.Invoke();
             unpossessionCallback?.Invoke();
             unpossessionCallback = null;
         }
@@ -166,6 +159,7 @@ namespace Possession
             // Is this the characters own physical form? If not, enrage it.
             var isOwnPhysicalForm = (IPossessable)PhysicalForm == PossessedCharacter;
             PossessedCharacter.ReleasePossession(isOwnPhysicalForm);
+            PossessionReleased?.Invoke();
             
             // Handle spirit form
             if (!repossession)
