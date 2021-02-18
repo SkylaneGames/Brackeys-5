@@ -40,6 +40,7 @@ namespace Possession
         private PossessionArgs nextPossession = null;
 
         private Action unpossessionCallback = null;
+        public GameObject SpiritParticles;
 
         void Awake()
         {
@@ -103,6 +104,8 @@ namespace Possession
         private void ShowSpiritForm()
         {
             animComplete = false;
+            SpiritParticles.SetActive(true);
+            SpiritParticles.GetComponent<Animator>().SetTrigger("Unpossess"); 
             StartCoroutine("CallAfterUnpossession");
             //_animator.SetTrigger("Unpossess");
         }
@@ -110,23 +113,27 @@ namespace Possession
         private void HideSpiritForm()
         {
             animComplete = false;
+            SpiritParticles.SetActive(true);
+            SpiritParticles.GetComponent<Animator>().SetTrigger("Possess"); 
             StartCoroutine("CallAfterPossession");
             //_animator.SetTrigger("Possess");
             
         }
 
         private IEnumerator CallAfterPossession(){
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(3);
+            SpiritParticles.SetActive(false);
             PossessionComplete();
         }
 
         private IEnumerator CallAfterRepossession(){
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(3);
             RepossessionComplete();
         }
 
         private IEnumerator CallAfterUnpossession(){
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(2.9f);
+            SpiritParticles.SetActive(false);
             UnpossessionComplete();
         }
 
