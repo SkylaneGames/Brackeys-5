@@ -8,7 +8,7 @@ using UnityEngine;
 public class CharacterInteraction : MonoBehaviour
 {
     // Use this to disable highlights when NPCs interact with objects.
-    public bool UseHighlights = true;
+    public bool UseHighlights { get; set; }
 
     public IInteractable LastInteractable = null;
 

@@ -28,7 +28,8 @@ namespace Combat
         }
 
         private HealthSystem _healthSystem;
-        
+        public HealthSystem HealthSystem { get { return _healthSystem; } }
+
         private Animator _animator;
 
         private void Awake()
