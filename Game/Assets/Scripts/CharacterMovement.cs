@@ -11,12 +11,12 @@ public class CharacterMovement : MonoBehaviour
     public float Speed = 5f;
     Rigidbody body;
     Vector3 currentTranslation;
-    CharacterAnimation _animation;
+    CharacterAnimation animation;
     float rotation;
 
     void Awake(){
         body =  GetComponent<Rigidbody>();
-        _animation = GetComponent<CharacterAnimation>();
+        animation = GetComponent<CharacterAnimation>();
     }
 
 
@@ -25,7 +25,7 @@ public class CharacterMovement : MonoBehaviour
     }
     void FixedUpdate(){
         body.velocity = currentTranslation;
-        if(body.velocity.magnitude>0.5f){
+        if(body.velocity.magnitude>0.3f){
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(body.velocity.x, 0, body.velocity.z).normalized), smooth * Time.deltaTime) ;
             //transform.rotation = Quaternion.LookRotation(new Vector3(body.velocity.x, 0, body.velocity.z).normalized);
         }
@@ -36,10 +36,10 @@ public class CharacterMovement : MonoBehaviour
 
     void LateUpdate(){
         if(body.velocity.magnitude>0.5f){
-            _animation.RunForward();
+            animation.RunForward();
         }
         else{
-            _animation.StopMoving();
+            animation.StopMoving();
         }
 
         
@@ -48,5 +48,9 @@ public class CharacterMovement : MonoBehaviour
     public void UpdateMovement(Vector3 translation){
         currentTranslation = translation * Speed;
         //rotation = newRotation;
+    }
+
+    public void StopMoving(){
+        body.velocity = Vector3.zero;
     }
 }

@@ -6,7 +6,6 @@ using UnityEngine;
 namespace Possession
 {
     [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(Possess_CharacterMovement))]
     public class PossessionSystem : MonoBehaviour
     {
         private class PossessionArgs
@@ -21,7 +20,7 @@ namespace Possession
 
         public Possessable PhysicalForm = null;
 
-        private Possess_CameraFollow CameraSystem;
+        //private Possess_CameraFollow CameraSystem;
 
         [SerializeField]
         [Range(0,1)]
@@ -47,7 +46,7 @@ namespace Possession
             _animator = GetComponent<Animator>();
             Controller = GetComponent<CharacterController>();
 
-            CameraSystem = FindObjectOfType<Possess_CameraFollow>();
+            //CameraSystem = FindObjectOfType<Possess_CameraFollow>();
         }
 
         // Start is called before the first frame update
@@ -56,7 +55,7 @@ namespace Possession
             if (PossessedCharacter != null)
             {
                 HideSpiritForm();
-                CameraSystem.Target = PossessedCharacter.Controller.transform;
+                //CameraSystem.Target = PossessedCharacter.Controller.transform;
             }
         }
 
@@ -104,14 +103,31 @@ namespace Possession
         private void ShowSpiritForm()
         {
             animComplete = false;
-            _animator.SetTrigger("Unpossess");
+            StartCoroutine("CallAfterUnpossession");
+            //_animator.SetTrigger("Unpossess");
         }
 
         private void HideSpiritForm()
         {
             animComplete = false;
-            _animator.SetTrigger("Possess");
+            StartCoroutine("CallAfterPossession");
+            //_animator.SetTrigger("Possess");
             
+        }
+
+        private IEnumerator CallAfterPossession(){
+            yield return new WaitForSeconds(1);
+            PossessionComplete();
+        }
+
+        private IEnumerator CallAfterRepossession(){
+            yield return new WaitForSeconds(1);
+            RepossessionComplete();
+        }
+
+        private IEnumerator CallAfterUnpossession(){
+            yield return new WaitForSeconds(1);
+            UnpossessionComplete();
         }
 
         private void OnPossessionComplete()
@@ -119,7 +135,7 @@ namespace Possession
             CharacterPossessed?.Invoke();
             
             PossessedCharacter = nextPossession.character;
-            CameraSystem.Target = PossessedCharacter.Controller.transform;
+            //CameraSystem.Target = PossessedCharacter.Controller.transform;
 
             nextPossession.callback?.Invoke();
             nextPossession = null;
@@ -167,13 +183,14 @@ namespace Possession
                 unpossessionCallback = callback;
                 transform.position = GetPositionAfterPossession();
                 ShowSpiritForm();
-                CameraSystem.Target = transform;
+                //CameraSystem.Target = transform;
                 PossessedCharacter = null;
             }
             else
             {
                 animComplete = false;
-                _animator.SetTrigger("Repossess");
+                StartCoroutine("CallAfterRepossession");
+                //_animator.SetTrigger("Repossess");
             }
         }
 

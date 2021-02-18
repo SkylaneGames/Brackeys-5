@@ -6,14 +6,16 @@ public enum CharacterType
     Physical, Spirit
 }
 
-[RequireComponent(typeof(Possess_CharacterMovement))]
+[RequireComponent(typeof(CharacterMovement))]
 public abstract class CharacterController : MonoBehaviour
 {
-    private Possess_CharacterMovement _movementSystem;
+    private CharacterMovement _movementSystem;
     private CharacterInteraction _interactionSystem;
     private CombatSystem _combatSystem;
 
-    public virtual Possess_CharacterMovement MovementSystem
+    
+
+    public virtual CharacterMovement MovementSystem
     {
         get { return _movementSystem; }
     }
@@ -40,7 +42,7 @@ public abstract class CharacterController : MonoBehaviour
 
     protected virtual void Awake()
     {
-        _movementSystem = GetComponent<Possess_CharacterMovement>();
+        _movementSystem = GetComponent<CharacterMovement>();
         _interactionSystem = GetComponentInChildren<CharacterInteraction>();
         _combatSystem = GetComponentInChildren<CombatSystem>();
     }
