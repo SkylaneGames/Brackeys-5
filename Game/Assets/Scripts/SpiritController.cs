@@ -15,7 +15,7 @@ public class SpiritController : CharacterController
         get { return _possessionSystem; }
     }
 
-    public override Possess_CharacterMovement MovementSystem
+    public override CharacterMovement MovementSystem
     {
         get
         {

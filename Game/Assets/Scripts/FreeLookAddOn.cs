@@ -7,12 +7,15 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CinemachineFreeLook))]
 public class FreeLookAddOn : MonoBehaviour
 {
-    public float LookSpeed = 1.0f;
+    public float LookSpeedX = 1.0f;
+    public float LookSpeedY = 1.0f;
     public bool InvertY = false;
     private CinemachineFreeLook freeLookComponent;
 
     public void Start(){
         freeLookComponent = GetComponent<CinemachineFreeLook>();
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
     }
 
     public void OnLook(InputAction.CallbackContext context){
@@ -24,7 +27,7 @@ public class FreeLookAddOn : MonoBehaviour
         lookMovement.x = lookMovement.x * 180f; 
 
         //Ajust axis values using look speed and Time.deltaTime so the look doesn't go faster if there is more FPS
-        freeLookComponent.m_XAxis.Value += lookMovement.x * LookSpeed * Time.deltaTime;
-        freeLookComponent.m_YAxis.Value += lookMovement.y * LookSpeed * Time.deltaTime;
+        freeLookComponent.m_XAxis.Value += lookMovement.x * LookSpeedX * Time.deltaTime;
+        freeLookComponent.m_YAxis.Value += lookMovement.y * LookSpeedY * Time.deltaTime;
     }
 }
