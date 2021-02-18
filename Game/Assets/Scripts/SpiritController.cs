@@ -6,13 +6,17 @@ using UnityEngine;
 public class SpiritController : CharacterController
 {
     private PossessionSystem _possessionSystem;
-
-    [SerializeField]
-    private GameObject body;
+    private AbilitySystem _abilitySystem;
+    private Renderer[] _meshRenderers;
 
     public PossessionSystem PossessionSystem
     {
         get { return _possessionSystem; }
+    }
+
+    public AbilitySystem AbilitySystem
+    {
+        get { return _abilitySystem; }
     }
 
     public override CharacterMovement MovementSystem
@@ -45,7 +49,10 @@ public class SpiritController : CharacterController
         }
     }
 
-    public override bool IsBusy => base.IsBusy || InteractionSystem.IsInteracting || isUnpossessing;
+    public override bool IsBusy => base.IsBusy
+        || InteractionSystem.IsInteracting
+        || isUnpossessing
+        || (AbilitySystem?.IsCasting ?? false);
 
     public override CharacterType CharacterType => CharacterType.Spirit;
 
@@ -56,12 +63,15 @@ public class SpiritController : CharacterController
         base.Awake();
 
         _possessionSystem = GetComponent<PossessionSystem>();
+        _abilitySystem = GetComponentInChildren<AbilitySystem>();
+        _meshRenderers = GetComponentsInChildren<Renderer>();
     }
 
     protected override void Start()
     {
+        base.Start();
         base.InteractionSystem.UseHighlights = ShowHightlights;
-        
+
         _possessionSystem.CharacterPossessed += () => base.InteractionSystem.UseHighlights = false;
         _possessionSystem.PossessionReleased += () => base.InteractionSystem.UseHighlights = ShowHightlights;
     }
@@ -74,6 +84,10 @@ public class SpiritController : CharacterController
 
     public void SetVisibility(bool visible)
     {
-        body.SetActive(visible);
+        // body.SetActive(visible);
+        foreach (var mesh in _meshRenderers)
+        {
+            mesh.enabled = visible;
+        }
     }
 }

@@ -51,6 +51,6 @@ public class CharacterMovement : MonoBehaviour
     }
 
     public void StopMoving(){
-        body.velocity = Vector3.zero;
+        currentTranslation = Vector3.zero;
     }
 }

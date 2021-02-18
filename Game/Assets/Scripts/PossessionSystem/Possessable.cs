@@ -74,7 +74,7 @@ namespace Possession
             }
         }
 
-        public void Interact(GameObject interacter, Action callback)
+        public void Interact(CharacterController interacter, Action callback)
         {
             var interactersPossessionSystem = GetPossessionSystem(interacter);
 
@@ -88,7 +88,7 @@ namespace Possession
             interactersPossessionSystem.Possess(this, () => { HighlightObject.Hide(); callback?.Invoke(); });
         }
 
-        public bool CanInteract(GameObject interacter)
+        public bool CanInteract(CharacterController interacter)
         {
             if (IsPossessed)
             {
@@ -112,7 +112,7 @@ namespace Possession
             return interactersPossessionSystem.PoessessionPower > Resistance;
         }
 
-        private PossessionSystem GetPossessionSystem(GameObject interacter)
+        private PossessionSystem GetPossessionSystem(CharacterController interacter)
         {
             var interactersPossessionSystem = interacter.GetComponent<PossessionSystem>();
             if (interactersPossessionSystem == null)

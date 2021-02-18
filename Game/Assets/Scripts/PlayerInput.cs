@@ -24,7 +24,8 @@ public class PlayerInput : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
     }
-    void FixedUpdate(){
+    
+    void Update(){
         var keyboard = Keyboard.current;
         if (keyboard == null) {
             return;

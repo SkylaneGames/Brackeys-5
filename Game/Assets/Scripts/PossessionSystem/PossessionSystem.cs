@@ -167,6 +167,7 @@ namespace Possession
         {
             Debug.Log("Unpossession complete");
             animComplete = true;
+            PossessionReleased?.Invoke();
 
             unpossessionCallback?.Invoke();
             unpossessionCallback = null;
@@ -182,7 +183,6 @@ namespace Possession
             // Is this the characters own physical form? If not, enrage it.
             var isOwnPhysicalForm = (IPossessable)PhysicalForm == PossessedCharacter;
             PossessedCharacter.ReleasePossession(isOwnPhysicalForm);
-            PossessionReleased?.Invoke();
             
             // Handle spirit form
             if (!repossession)

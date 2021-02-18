@@ -28,7 +28,8 @@ namespace Combat
         }
 
         private HealthSystem _healthSystem;
-        
+        public HealthSystem HealthSystem { get { return _healthSystem; } }
+
         private Animator _animator;
 
         private void Awake()
@@ -63,9 +64,9 @@ namespace Combat
 
         private void OnTriggerEnter(Collider collider)
         {
-            var weapon = collider.GetComponent<PhysicalWeapon>();
+            var weapon = collider.GetComponent<Weapon>();
 
-            if (weapon != null)
+            if (weapon != null && weapon.Caller != this)
             {
                 Debug.Log($"[{name}] Weapon hit, damage: {weapon.Damage}");
                 TakeDamage(weapon.Damage);

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e22480ccc8e037e40989fa91ac23d4d0, type: 3}
+  m_Name: Fireblast
+  m_EditorClassIdentifier: 
+  Name: Fireblast
+  Icon: {fileID: 0}
+  CastTime: 2
+  Cooldown: 5
+  Type: 1
+  Prefab: {fileID: 3992217404656486321, guid: 3c8b2da97f876974a92c566c6b5606a2, type: 3}

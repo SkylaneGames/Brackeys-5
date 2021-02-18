@@ -6,14 +6,16 @@ using UnityEngine;
 
 namespace Combat
 {
-    public delegate void PlayerHit(int damage);
+    public delegate void CharacterHit(int damage);
+    public delegate void CharacterHealed(int amount);
     public delegate void HealthChanged(float normalisedValue);
 
     [RequireComponent(typeof(Collider))]
     public class HealthSystem : MonoBehaviour
     {
         public event HealthChanged HealthChanged;
-        public event PlayerHit CharacterHit;
+        public event CharacterHealed CharacterHealed;
+        public event CharacterHit CharacterHit;
         public event Action CharacterBlocked;
         public event Action CharacterKilled;
 
@@ -84,6 +86,21 @@ namespace Combat
                     CharacterKilled?.Invoke();
                 }
             }
+        }
+
+        public void Heal(int health)
+        {
+            if (CurrentHealth == MaxHealth)
+            {
+                Debug.Log($"[{transform.parent.name}] Already at max health.");
+                return;
+            }
+
+            var amount = Mathf.Min(health, MaxHealth - CurrentHealth);
+
+            CurrentHealth += amount;
+
+            CharacterHealed?.Invoke(amount);
         }
 
         private int ApplyArmourRating(int damage, DamageType type)
