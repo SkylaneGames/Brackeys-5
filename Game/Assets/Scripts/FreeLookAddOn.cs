@@ -14,7 +14,7 @@ public class FreeLookAddOn : MonoBehaviour
 
     public void Start(){
         freeLookComponent = GetComponent<CinemachineFreeLook>();
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
@@ -27,7 +27,7 @@ public class FreeLookAddOn : MonoBehaviour
         lookMovement.x = lookMovement.x * 180f; 
 
         //Ajust axis values using look speed and Time.deltaTime so the look doesn't go faster if there is more FPS
-        freeLookComponent.m_XAxis.Value += lookMovement.x * LookSpeedX * Time.deltaTime;
-        freeLookComponent.m_YAxis.Value += lookMovement.y * LookSpeedY * Time.deltaTime;
+        freeLookComponent.m_XAxis.Value += lookMovement.x * LookSpeedX * Time.fixedDeltaTime;
+        freeLookComponent.m_YAxis.Value += lookMovement.y * LookSpeedY * Time.fixedDeltaTime;
     }
 }
