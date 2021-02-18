@@ -23,12 +23,12 @@ public class LeverInteraction : MonoBehaviour, IInteractable
         HighlightObject = GetComponentInChildren<InteractionHighlight>();
         LeverAnimation = GetComponentInParent<Animation>();
     }
-    public bool CanInteract(GameObject interacter)
+    public bool CanInteract(CharacterController interacter)
     {
-        return !LeverActivated;
+        return !LeverActivated && interacter.CharacterType == CharacterType.Physical;
     }
 
-    public void Interact(GameObject interacter, Action callback = null)
+    public void Interact(CharacterController interacter, Action callback = null)
     {
         LeverAnimation.Play();
         LeverActivated = true;

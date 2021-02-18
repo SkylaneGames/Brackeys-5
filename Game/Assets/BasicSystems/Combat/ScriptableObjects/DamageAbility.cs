@@ -14,11 +14,11 @@ namespace Combat
                 return;
             }
 
-            var spawnPosition = caller.transform.position + Vector3.up;
+            var spawnPosition = caller.transform.position;
 
             if (Type == AbilityType.Ranged)
             {
-                spawnPosition += caller.transform.forward;
+                spawnPosition += caller.transform.forward + Vector3.up * 2;
             }
 
             var magicObject = Instantiate(Prefab, spawnPosition, caller.Controller.transform.localRotation);
@@ -29,6 +29,11 @@ namespace Combat
                 magicScript.lifetime = CastTime;
                 magicScript.Caller = caller.Controller.CombatSystem;
                 
+            }
+            else if (Type == AbilityType.Ranged)
+            {
+                var magicScript = magicObject.GetComponent<RangedMagic>();
+                magicScript.Caller = caller.Controller.CombatSystem;
             }
         }
     }

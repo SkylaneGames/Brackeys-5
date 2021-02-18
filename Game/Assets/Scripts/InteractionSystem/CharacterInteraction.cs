@@ -14,13 +14,20 @@ public class CharacterInteraction : MonoBehaviour
 
     public bool IsInteracting { get; private set; } = false;
 
+    public CharacterController Controller { get; private set; }
+
+    void Awake()
+    {
+        Controller = GetComponentInParent<CharacterController>();
+    }
+
     public void Interact()
     {
         if (LastInteractable != null)
         {
             Debug.Log($"'{transform.parent.name}' is interacting with '{LastInteractable.Name}'");
             IsInteracting = true;
-            LastInteractable.Interact(transform.parent.gameObject, () => IsInteracting = false);
+            LastInteractable.Interact(Controller, () => IsInteracting = false);
             LastInteractable = null;
         }
     }
@@ -29,7 +36,7 @@ public class CharacterInteraction : MonoBehaviour
     {
         var interactable = collider.GetComponent<IInteractable>();
 
-        if (interactable != null && interactable != LastInteractable && interactable.CanInteract(transform.parent.gameObject))
+        if (interactable != null && interactable != LastInteractable && interactable.CanInteract(Controller))
         {
             if (LastInteractable != null)
             {
