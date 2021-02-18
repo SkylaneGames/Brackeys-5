@@ -8,6 +8,7 @@ namespace Combat
     public class AOEMagic : Weapon
     {
         public float lifetime = 1;
+        
         // Start is called before the first frame update
         void Start()
         {

@@ -25,7 +25,10 @@ namespace Combat
 
             if (Type == AbilityType.Area)
             {
-                magicObject.GetComponent<AOEMagic>().lifetime = CastTime;
+                var magicScript = magicObject.GetComponent<AOEMagic>();
+                magicScript.lifetime = CastTime;
+                magicScript.Caller = caller.Controller.CombatSystem;
+                
             }
         }
     }

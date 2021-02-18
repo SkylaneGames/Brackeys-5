@@ -19,6 +19,8 @@ namespace Combat
 
         public List<DamageInfo> Damage;
 
+        public CombatSystem Caller { get; set; }
+
         void Awake()
         {
             _collider = GetComponent<Collider>();

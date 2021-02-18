@@ -66,7 +66,7 @@ namespace Combat
         {
             var weapon = collider.GetComponent<Weapon>();
 
-            if (weapon != null)
+            if (weapon != null && weapon.Caller != this)
             {
                 Debug.Log($"[{name}] Weapon hit, damage: {weapon.Damage}");
                 TakeDamage(weapon.Damage);

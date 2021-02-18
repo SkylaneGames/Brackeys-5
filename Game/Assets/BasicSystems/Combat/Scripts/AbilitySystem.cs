@@ -47,9 +47,9 @@ namespace Combat
                 return;
             }
 
-            if (ability < 0 || ability >= Abilities.Length)
+            if (ability < 0 || ability >= Abilities.Length || Abilities[ability] == null)
             {
-                Debug.Log($"Invalid ability '{ability}'");
+                Debug.LogWarning($"Invalid ability '{ability}'");
                 return;
             }
 
