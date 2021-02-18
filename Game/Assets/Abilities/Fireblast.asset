@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28c15630ecbaaf6448cd33e591621002, type: 3}
-  m_Name: Unarmed
+  m_Script: {fileID: 11500000, guid: e22480ccc8e037e40989fa91ac23d4d0, type: 3}
+  m_Name: Fireblast
   m_EditorClassIdentifier: 
-  Name: Unarmed
+  Name: Fireblast
   Icon: {fileID: 0}
-  equipmentSlot: 4
-  gameObject: {fileID: 0}
-  WeaponType: 4
-  Damage:
-  - DamageType: 0
-    Value: 0
+  CastTime: 2
+  Cooldown: 5
+  Type: 1
+  Prefab: {fileID: 3992217404656486321, guid: 3c8b2da97f876974a92c566c6b5606a2, type: 3}

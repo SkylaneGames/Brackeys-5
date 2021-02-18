@@ -64,7 +64,7 @@ namespace Combat
 
         private void OnTriggerEnter(Collider collider)
         {
-            var weapon = collider.GetComponent<PhysicalWeapon>();
+            var weapon = collider.GetComponent<Weapon>();
 
             if (weapon != null)
             {

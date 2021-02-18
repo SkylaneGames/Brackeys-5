@@ -1,11 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Combat
 {
+    [Serializable]
+    public struct DamageInfo
+    {
+        public DamageType DamageType;
+        public int Value;
+    }
+
     [RequireComponent(typeof(Collider))]
-    public class PhysicalWeapon : MonoBehaviour
+    public class Weapon : MonoBehaviour
     {
         private Collider _collider;
 

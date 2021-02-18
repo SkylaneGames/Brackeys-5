@@ -33,6 +33,88 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PhysicalForm: {fileID: 0}
   possessionPower: 0.4
+--- !u!114 &3276198755837165956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5948683962144715277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: f7563e87418266941bc1b8ab90d04e52, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6c1ff312-4952-4c17-92f2-b30ccf33df19
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b460e57b-421f-4f0b-9b08-84e93773091b
+    m_ActionName: Player/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fd6e4aed-2ef2-4952-bcb8-8e47a293364a
+    m_ActionName: Player/Fire[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 41184d03-b64a-4bbd-a48c-bfb38a9c84c8
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 72bfa0af-ddb1-4d8a-b422-fb31a9071e73
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8683fe94-9aad-47b7-90d0-7185b4284d69
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8c58ec51-1f70-4d8f-8a77-962fef384d8f
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f0e70b79-f389-413f-8e1e-d5ed36639ecf
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e6bd6875-0ed7-4182-84ac-3c31c3297a74
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fdb9e0ff-465a-4e96-a071-3179063d00f6
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fa00bc8d-f9da-4c24-812d-bf197321695f
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b089483e-8701-471c-8d6a-6db7e4bae010
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 063f547e-4d76-4dd7-b916-9665c01dc169
+    m_ActionName: UI/TrackedDeviceOrientation
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!114 &9009496187562192668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,6 +129,94 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowHightlights: 1
   body: {fileID: 3014773924344516827}
+  sceneCamera: {fileID: 0}
+--- !u!1 &6250384164889533105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4871126206000522657}
+  m_Layer: 0
+  m_Name: Camera Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4871126206000522657
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6250384164889533105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.296, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6397474945873921024}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &487484139330933960
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6397474945873921024}
+    m_Modifications:
+    - target: {fileID: 8778353934460781552, guid: c828e1c9e34acc24bb46e359ef7447a7, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778353934460781552, guid: c828e1c9e34acc24bb46e359ef7447a7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778353934460781552, guid: c828e1c9e34acc24bb46e359ef7447a7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778353934460781552, guid: c828e1c9e34acc24bb46e359ef7447a7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778353934460781552, guid: c828e1c9e34acc24bb46e359ef7447a7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778353934460781552, guid: c828e1c9e34acc24bb46e359ef7447a7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778353934460781552, guid: c828e1c9e34acc24bb46e359ef7447a7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778353934460781552, guid: c828e1c9e34acc24bb46e359ef7447a7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778353934460781552, guid: c828e1c9e34acc24bb46e359ef7447a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778353934460781552, guid: c828e1c9e34acc24bb46e359ef7447a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778353934460781552, guid: c828e1c9e34acc24bb46e359ef7447a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778353934460781567, guid: c828e1c9e34acc24bb46e359ef7447a7, type: 3}
+      propertyPath: m_Name
+      value: AbilitySystem
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c828e1c9e34acc24bb46e359ef7447a7, type: 3}
 --- !u!1001 &5298620512892718807
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -110,6 +280,18 @@ PrefabInstance:
       propertyPath: UseHighlights
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5502948377235757661, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944229160931548684, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518982546161693605, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7659403261959642309, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -119,6 +301,11 @@ PrefabInstance:
 --- !u!1 &5948683962144715277 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1947107290438139098, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+  m_PrefabInstance: {fileID: 5298620512892718807}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6397474945873921024 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1243027414894201559, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
   m_PrefabInstance: {fileID: 5298620512892718807}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &3014773924344516827 stripped
