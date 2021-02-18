@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7114ed7fc0fa321498cca8aee67254c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowHightlights: 0
+  body: {fileID: 6613122844802764726}
 --- !u!1001 &4294274130091872698
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75,6 +77,22 @@ PrefabInstance:
       propertyPath: UseHighlights
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4635248831607835304, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635248831607835304, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635248831728581939, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635248831728581939, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7659403261959642309, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -84,5 +102,10 @@ PrefabInstance:
 --- !u!1 &2350263631404723552 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1947107290438139098, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
+  m_PrefabInstance: {fileID: 4294274130091872698}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6613122844802764726 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6944229160931548684, guid: 2867411ff224f4147be6d009eacdf628, type: 3}
   m_PrefabInstance: {fileID: 4294274130091872698}
   m_PrefabAsset: {fileID: 0}
