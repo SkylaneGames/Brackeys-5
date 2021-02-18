@@ -32,7 +32,7 @@ public class LeverInteraction : MonoBehaviour, IInteractable
     {
         LeverAnimation.Play();
         LeverActivated = true;
-        Door.GetComponent<Animation>().Play();
+        Door.GetComponent<Animator>().SetTrigger("Open");
         //Door.GetComponent<BoxCollider>().enabled = false;
         RemoveHighlight();
         callback?.Invoke();
