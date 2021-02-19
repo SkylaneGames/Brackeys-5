@@ -78,8 +78,11 @@ public class SpiritController : CharacterController
 
     protected void UnPossess()
     {
-        isUnpossessing = true;
-        _possessionSystem.ReleaseCurrentPossession(callback: () => isUnpossessing = false);
+        if (PossessionSystem.IsPossessing)
+        {
+            isUnpossessing = true;
+            PossessionSystem.ReleaseCurrentPossession(callback: () => isUnpossessing = false);
+        }
     }
 
     public void SetVisibility(bool visible)
