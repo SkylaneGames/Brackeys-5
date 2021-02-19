@@ -14,6 +14,9 @@ namespace Combat
         public event RageChanged RageChanged;
 
         [SerializeField]
+        private float attackDuration = 1f;
+
+        [SerializeField]
         [Range(0, 1)]
         private float rage = 0;
 
@@ -27,10 +30,24 @@ namespace Combat
             }
         }
 
+        [SerializeField]
+        [Range(0, 1)]
+        [Tooltip("The amount of rage the character gains per point of damage (Rage ranges from 0 to 1, so at 1, one point of damage would max out rage).")]
+        private float rageIncreasePerDamge = 0.01f;
+
+        public bool IsAttacking { get; private set; } = false;
+
+        public bool CanAttack
+        {
+            get { return !IsAttacking && weapon.Damage.Count > 0; }
+        }
+
         private HealthSystem _healthSystem;
         public HealthSystem HealthSystem { get { return _healthSystem; } }
 
         private Animator _animator;
+
+        private Weapon weapon;
 
         private void Awake()
         {
@@ -39,11 +56,39 @@ namespace Combat
             {
                 _animator = _animator ?? transform.parent.GetComponent<Animator>();
             }
+
+            weapon = GetComponentInChildren<Weapon>();
+
+            _healthSystem.CharacterHit += OnCharacterHit;
+        }
+
+        private void OnCharacterHit(int damage)
+        {
+            float dRage = damage * rageIncreasePerDamge;
+            Rage += dRage;
         }
 
         public void Attack()
         {
-            _animator.SetTrigger("Attack");
+            if (CanAttack)
+            {
+                IsAttacking = true;
+                SetWeaponActive(true);
+                StartCoroutine("SetAttackedFinishedAfterDuration");
+                _animator.SetTrigger("Attack");
+            }
+        }
+
+        private IEnumerator SetAttackedFinishedAfterDuration()
+        {
+            yield return new WaitForSeconds(attackDuration);
+            IsAttacking = false;
+            SetWeaponActive(false);
+        }
+
+        private void SetWeaponActive(bool active)
+        {
+            weapon.SetDamageActive(active);
         }
 
         public void TakeDamage(IEnumerable<DamageInfo> hits)
@@ -52,11 +97,11 @@ namespace Combat
             {
                 var hitDamage = damage;
 
-                // Scale physical attacks based on rage.
-                if (damage.DamageType == DamageType.Physical)
-                {
-                    hitDamage.Value += Mathf.RoundToInt(hitDamage.Value * rage);
-                }
+                // // Scale physical attacks based on rage (need to get the attacking combat system's rage level).
+                // if (damage.DamageType == DamageType.Physical)
+                // {
+                //     hitDamage.Value += Mathf.RoundToInt(hitDamage.Value);
+                // }
 
                 _healthSystem.Damage(hitDamage);
             }
@@ -68,7 +113,7 @@ namespace Combat
 
             if (weapon != null && weapon.Caller != this)
             {
-                Debug.Log($"[{name}] Weapon hit, damage: {weapon.Damage}");
+                Debug.Log($"[{name}] hit by '{collider.name}'");
                 TakeDamage(weapon.Damage);
             }
         }

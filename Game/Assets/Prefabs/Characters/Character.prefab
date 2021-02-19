@@ -2835,9 +2835,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: CombatSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 4243092753255364574, guid: 04dcf5e824db9fa458bb1141908d2776, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.455
+      objectReference: {fileID: 0}
+    - target: {fileID: 4243092753255364574, guid: 04dcf5e824db9fa458bb1141908d2776, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.959
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351121929298107959, guid: 04dcf5e824db9fa458bb1141908d2776, type: 3}
+      propertyPath: m_Size.x
+      value: 1.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351121929298107959, guid: 04dcf5e824db9fa458bb1141908d2776, type: 3}
+      propertyPath: m_Size.y
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 5168646050247033270, guid: 04dcf5e824db9fa458bb1141908d2776, type: 3}
       propertyPath: m_Height
       value: 3.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117919987386642955, guid: 04dcf5e824db9fa458bb1141908d2776, type: 3}
+      propertyPath: attackDuration
+      value: 1.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04dcf5e824db9fa458bb1141908d2776, type: 3}

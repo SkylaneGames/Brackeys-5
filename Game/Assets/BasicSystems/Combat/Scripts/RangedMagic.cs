@@ -6,8 +6,8 @@ namespace Combat
 {
     [RequireComponent(typeof(Collider))]
     public class RangedMagic : Weapon
-   {
-       public float Speed = 5;
+    {
+        public float Speed = 5;
 
         void FixedUpdate()
         {
@@ -16,7 +16,10 @@ namespace Combat
 
         private void OnTriggerEnter(Collider collider)
         {
-            Destroy(gameObject);
+            if (collider.GetComponent<CombatSystem>() != Caller)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

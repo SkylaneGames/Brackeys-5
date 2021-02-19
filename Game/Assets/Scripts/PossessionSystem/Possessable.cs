@@ -90,7 +90,7 @@ namespace Possession
 
         public bool CanInteract(CharacterController interacter)
         {
-            if (IsPossessed)
+            if (IsPossessed || Controller.CombatSystem.HealthSystem.IsDead)
             {
                 return false;
             }

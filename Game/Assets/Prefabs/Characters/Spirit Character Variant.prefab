@@ -39,6 +39,18 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ab6d1f8f322ce234fba7e1b47d182863, type: 2}
+    - target: {fileID: 3892057908325659256, guid: 7b0573fb98809f246ac8cafba2fafa04, type: 3}
+      propertyPath: ResistantToPhysicalDamage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892057908325659256, guid: 7b0573fb98809f246ac8cafba2fafa04, type: 3}
+      propertyPath: ArmourResistances.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892057908325659256, guid: 7b0573fb98809f246ac8cafba2fafa04, type: 3}
+      propertyPath: ArmourResistances.Array.data[0].Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4385986501311686350, guid: 7b0573fb98809f246ac8cafba2fafa04, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -81,6 +93,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4385986501311686350, guid: 7b0573fb98809f246ac8cafba2fafa04, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4570277935218375800, guid: 7b0573fb98809f246ac8cafba2fafa04, type: 3}
+      propertyPath: rageIncreasePerDamge
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8317650378047768454, guid: 7b0573fb98809f246ac8cafba2fafa04, type: 3}

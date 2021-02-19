@@ -42,6 +42,11 @@ namespace Combat
 
         public void Use(int ability)
         {
+            if (Controller.PossessionSystem.IsPossessing)
+            {
+                return;
+            }
+            
             if (IsCasting)
             {
                 return;

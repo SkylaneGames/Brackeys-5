@@ -27,6 +27,9 @@ namespace Combat
             }
         }
 
+        public bool ResistantToPhysicalDamage = false;
+        public bool ResistantToMagicalDamage = false;
+
         [Range(0, 1)]
         [Tooltip("The chance of armour reducing amount of damage taken. (Set to 1 to always remove armour rating from damage value)")]
         public float armourEffectiveness = 0.8f;
@@ -58,6 +61,16 @@ namespace Combat
 
         public void Damage(DamageInfo damage)
         {
+            if (ResistantToPhysicalDamage && damage.DamageType == DamageType.Physical)
+            {
+                return;
+            }
+
+            if (ResistantToMagicalDamage && damage.DamageType == DamageType.Magic)
+            {
+                return;
+            }
+
             if (IsDead)
             {
                 return;
