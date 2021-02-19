@@ -11,6 +11,8 @@ public class VisibilitySystem : MonoBehaviour
 
     private List<SpiritController> AllSpirits = new List<SpiritController>();
 
+    bool init = true;
+
     private void ShowSpirits()
     {
         UpdateVisibility(true);
@@ -33,7 +35,18 @@ public class VisibilitySystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (init)
+        {
+            init = false;
+            if (Target.PossessionSystem.IsPossessing)
+            {
+                HideSpirits();
+            }
+            else
+            {
+                ShowSpirits();
+            }
+        }
     }
 
     private void RefreshSpiritList()

@@ -13,9 +13,11 @@ namespace Possession
             public IPossessable character;
             public Action callback;
         }
-        
+
         public bool IsPossessing => PossessedCharacter != null;
 
+        [SerializeField]
+        private Possessable InitPossessedCharacter = null;
         public IPossessable PossessedCharacter = null;
 
         public Possessable PhysicalForm = null;
@@ -23,7 +25,7 @@ namespace Possession
         //private Possess_CameraFollow CameraSystem;
 
         [SerializeField]
-        [Range(0,1)]
+        [Range(0, 1)]
         private float possessionPower = 0.4f;
 
         public float PoessessionPower => possessionPower;
@@ -53,9 +55,15 @@ namespace Possession
         // Start is called before the first frame update
         void Start()
         {
-            if (PossessedCharacter != null)
+            if (InitPossessedCharacter != null)
             {
-                HideSpiritForm();
+                nextPossession = new PossessionArgs
+                {
+                    character = InitPossessedCharacter
+                };
+                
+                PossessionComplete();
+                PossessedCharacter.Possess(this);
                 //CameraSystem.Target = PossessedCharacter.Controller.transform;
             }
         }
@@ -82,11 +90,11 @@ namespace Possession
                 bool isRepossession = PossessedCharacter != null;
 
                 Controller.MovementSystem.StopMoving();
-                
+
                 var lookTarget = character.Controller.transform.position;
                 lookTarget.y = transform.position.y;
                 transform.LookAt(lookTarget, Vector3.up);
-                
+
                 if (isRepossession)
                 {
                     ReleaseCurrentPossession(true);
@@ -105,7 +113,7 @@ namespace Possession
         {
             animComplete = false;
             SpiritParticles.SetActive(true);
-            SpiritParticles.GetComponent<Animator>().SetTrigger("Unpossess"); 
+            SpiritParticles.GetComponent<Animator>().SetTrigger("Unpossess");
             StartCoroutine("CallAfterUnpossession");
             //_animator.SetTrigger("Unpossess");
         }
@@ -114,24 +122,27 @@ namespace Possession
         {
             animComplete = false;
             SpiritParticles.SetActive(true);
-            SpiritParticles.GetComponent<Animator>().SetTrigger("Possess"); 
+            SpiritParticles.GetComponent<Animator>().SetTrigger("Possess");
             StartCoroutine("CallAfterPossession");
             //_animator.SetTrigger("Possess");
-            
+
         }
 
-        private IEnumerator CallAfterPossession(){
+        private IEnumerator CallAfterPossession()
+        {
             yield return new WaitForSeconds(3);
             SpiritParticles.SetActive(false);
             PossessionComplete();
         }
 
-        private IEnumerator CallAfterRepossession(){
+        private IEnumerator CallAfterRepossession()
+        {
             yield return new WaitForSeconds(3);
             RepossessionComplete();
         }
 
-        private IEnumerator CallAfterUnpossession(){
+        private IEnumerator CallAfterUnpossession()
+        {
             yield return new WaitForSeconds(2.9f);
             SpiritParticles.SetActive(false);
             UnpossessionComplete();
@@ -140,7 +151,7 @@ namespace Possession
         private void OnPossessionComplete()
         {
             CharacterPossessed?.Invoke();
-            
+
             PossessedCharacter = nextPossession.character;
             //CameraSystem.Target = PossessedCharacter.Controller.transform;
 
@@ -159,7 +170,7 @@ namespace Possession
         {
             Debug.Log("repossession complete");
             animComplete = true;
-            
+
             OnPossessionComplete();
         }
 
@@ -179,11 +190,11 @@ namespace Possession
             {
                 return;
             }
-            
+
             // Is this the characters own physical form? If not, enrage it.
             var isOwnPhysicalForm = (IPossessable)PhysicalForm == PossessedCharacter;
             PossessedCharacter.ReleasePossession(isOwnPhysicalForm);
-            
+
             // Handle spirit form
             if (!repossession)
             {

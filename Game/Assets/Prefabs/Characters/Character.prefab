@@ -2857,7 +2857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6117919987386642955, guid: 04dcf5e824db9fa458bb1141908d2776, type: 3}
       propertyPath: attackDuration
-      value: 1.3
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04dcf5e824db9fa458bb1141908d2776, type: 3}

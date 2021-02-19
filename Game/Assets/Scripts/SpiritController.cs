@@ -50,7 +50,6 @@ public class SpiritController : CharacterController
     }
 
     public override bool IsBusy => base.IsBusy
-        || InteractionSystem.IsInteracting
         || isUnpossessing
         || (AbilitySystem?.IsCasting ?? false);
 

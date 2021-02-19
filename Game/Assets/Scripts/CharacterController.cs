@@ -15,7 +15,7 @@ public abstract class CharacterController : MonoBehaviour
     private CombatSystem _combatSystem;
     private Animator _animator;
 
-    
+
 
     public virtual CharacterMovement MovementSystem
     {
@@ -39,11 +39,8 @@ public abstract class CharacterController : MonoBehaviour
 
     public abstract CharacterType CharacterType { get; }
 
-    private bool isBusy;
-    public virtual bool IsBusy
-    {
-        get { return isBusy; }
-    }
+    public virtual bool IsBusy => InteractionSystem.IsInteracting
+        || CombatSystem.IsAttacking;
 
     public bool ShowHightlights = false;
 
