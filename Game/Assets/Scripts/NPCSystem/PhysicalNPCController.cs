@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace NPC
 {
-    public class PhysicalNPCController : PhysicalController
+    public class PhysicalNPCController : NPCController
     {
     }
 }

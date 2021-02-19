@@ -9,7 +9,6 @@ namespace Combat
     {
         public HealthSystem HealthSystem;
         public CombatSystem CombatSystem;
-        public DetectionSystem DetectionSystem;
         public IPossessable Possessable;
 
         public StatusBar HealthBar;
@@ -19,7 +18,6 @@ namespace Combat
         {
             HealthSystem = HealthSystem ?? transform.parent.GetComponentInChildren<HealthSystem>();
             CombatSystem = CombatSystem ?? transform.parent.GetComponentInChildren<CombatSystem>();
-            DetectionSystem = DetectionSystem ?? transform.parent.GetComponentInChildren<DetectionSystem>();
             Possessable = Possessable ?? transform.parent.GetComponentInChildren<IPossessable>();
 
             HealthSystem.HealthChanged += (health) => HealthBar.UpdateValue(health);

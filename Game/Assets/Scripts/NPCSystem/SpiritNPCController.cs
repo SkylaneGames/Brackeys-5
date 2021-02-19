@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpiritNPCController : SpiritController
+namespace NPC
 {
-    
+    public class SpiritNPCController : NPCController
+    {
+
+    }
 }
