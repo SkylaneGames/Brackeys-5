@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 09c5e99ad93fefe4db05a1360daba454, type: 2}
 --- !u!1001 &1149566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37868,6 +37868,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 807404341637163887, guid: 1d6b3829940eae64984e66993e38aec1, type: 3}
   m_PrefabInstance: {fileID: 1982523126}
   m_PrefabAsset: {fileID: 0}
+--- !u!208 &1982523134
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982523128}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.88000005, y: 1.6020001, z: 0.078}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.88000005, y: 1.6020001, z: -0.024}
+  m_TimeToStationary: 0.5
 --- !u!1001 &1987134587
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41528,6 +41544,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 211679792054190926, guid: ba8f2ddea88002c4f9cdb4b6055066a7, type: 3}
+      propertyPath: AttackRange
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 211679792054190926, guid: ba8f2ddea88002c4f9cdb4b6055066a7, type: 3}
+      propertyPath: activityDelay
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1197875273514267351, guid: ba8f2ddea88002c4f9cdb4b6055066a7, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -41547,6 +41571,26 @@ PrefabInstance:
     - target: {fileID: 1502173148081406957, guid: ba8f2ddea88002c4f9cdb4b6055066a7, type: 3}
       propertyPath: m_Name
       value: Physical NPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462750274081954488, guid: ba8f2ddea88002c4f9cdb4b6055066a7, type: 3}
+      propertyPath: threshold
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462750274081954488, guid: ba8f2ddea88002c4f9cdb4b6055066a7, type: 3}
+      propertyPath: LocalAwareness
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462750274081954488, guid: ba8f2ddea88002c4f9cdb4b6055066a7, type: 3}
+      propertyPath: MaximumViewDistance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6025756379630133631, guid: ba8f2ddea88002c4f9cdb4b6055066a7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352145606446816016, guid: ba8f2ddea88002c4f9cdb4b6055066a7, type: 3}
+      propertyPath: m_Radius
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6586750901296095909, guid: ba8f2ddea88002c4f9cdb4b6055066a7, type: 3}
       propertyPath: m_RootOrder

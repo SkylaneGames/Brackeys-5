@@ -50,6 +50,20 @@ namespace Possession
             Controller = GetComponentInParent<CharacterController>();
             HighlightObject = GetComponentInChildren<InteractionHighlight>();
             CombatSystem = transform.parent.GetComponentInChildren<CombatSystem>();
+
+        }
+
+        void Start()
+        {
+            CombatSystem.HealthSystem.CharacterKilled += OnCharacterKilled;
+        }
+
+        private void OnCharacterKilled()
+        {
+            if (IsPossessed)
+            {
+                (PossessingCharacter.Controller as SpiritController).Unpossess();
+            }
         }
 
         public bool Possess(PossessionSystem possessingCharacter)

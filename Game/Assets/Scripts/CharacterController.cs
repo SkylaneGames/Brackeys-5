@@ -45,7 +45,7 @@ public abstract class CharacterController : MonoBehaviour
     protected virtual void Start()
     {
         InteractionSystem.UseHighlights = ShowHightlights;
-        CombatSystem.HealthSystem.CharacterKilled += OnCharacterKilled;
+        _combatSystem.HealthSystem.CharacterKilled += OnCharacterKilled;
     }
 
     // Update is called once per frame

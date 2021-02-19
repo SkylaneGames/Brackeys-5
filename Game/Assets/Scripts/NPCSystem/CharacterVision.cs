@@ -41,6 +41,8 @@ namespace NPC
 
         public float ViewDistance => MaximumViewDistance * Perception;
 
+        public float LocalAwareness = 1f;
+
         private SphereCollider visionSphere;
 
         protected ISet<IInteractable> _interactables = new HashSet<IInteractable>();
@@ -131,6 +133,11 @@ namespace NPC
 
         protected bool CanSeeCharacter(CharacterController character)
         {
+            if (character.CombatSystem.HealthSystem.IsDead)
+            {
+                return false;
+            }
+            
             if (character.CharacterType == CharacterType.Spirit && NPCController.Controller.CharacterType != CharacterType.Spirit)
             {
                 return false;
@@ -145,6 +152,12 @@ namespace NPC
         {
             var direction = target.position - transform.position;
             var distance = direction.magnitude;
+
+            if (distance < LocalAwareness)
+            {
+                return true;
+            }
+
             direction = direction.normalized;
             var angle = Vector3.Angle(transform.forward, direction);
 
@@ -200,6 +213,9 @@ namespace NPC
             {
                 Gizmos.DrawIcon(item.Transform.position, "animationvisibilitytoggleon@2x", true);
             }
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, LocalAwareness);
         }
 
     }
