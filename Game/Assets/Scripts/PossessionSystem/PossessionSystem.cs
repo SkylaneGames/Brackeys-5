@@ -62,7 +62,7 @@ namespace Possession
                     character = InitPossessedCharacter
                 };
                 
-                PossessionComplete();
+                PossessionComplete(true);
                 PossessedCharacter.Possess(this);
                 //CameraSystem.Target = PossessedCharacter.Controller.transform;
             }
@@ -148,22 +148,27 @@ namespace Possession
             UnpossessionComplete();
         }
 
-        private void OnPossessionComplete()
+        private void OnPossessionComplete(bool init = false)
         {
             CharacterPossessed?.Invoke();
 
             PossessedCharacter = nextPossession.character;
             //CameraSystem.Target = PossessedCharacter.Controller.transform;
 
+            if (PossessedCharacter.RequiresSpirit && !init)
+            {
+                PossessedCharacter.Controller.Animator.SetTrigger("Possessed");
+            }
+
             nextPossession.callback?.Invoke();
             nextPossession = null;
         }
 
-        public void PossessionComplete()
+        public void PossessionComplete(bool init = false)
         {
             Debug.Log("Possession complete");
             animComplete = true;
-            OnPossessionComplete();
+            OnPossessionComplete(init);
         }
 
         public void RepossessionComplete()

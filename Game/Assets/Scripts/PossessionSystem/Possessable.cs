@@ -26,6 +26,10 @@ namespace Possession
         }
 
         [SerializeField]
+        private bool requiresSpirit = false;
+        public bool RequiresSpirit => requiresSpirit;
+
+        [SerializeField]
         [Range(0, 1)]
         private float BaseResistance = 0.2f;
 
@@ -69,6 +73,11 @@ namespace Possession
                 if (!isOwnPhysicalForm)
                 {
                     Rage += RagePerPossession;
+                }
+
+                if (RequiresSpirit)
+                {
+                    Controller.Animator.SetTrigger("Unpossessed");
                 }
                 PossessionReleased?.Invoke();
             }

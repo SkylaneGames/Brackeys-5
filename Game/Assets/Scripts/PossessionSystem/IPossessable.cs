@@ -13,6 +13,7 @@ namespace Possession
 
         PossessionSystem PossessingCharacter { get; }
         bool IsPossessed { get; }
+        bool RequiresSpirit { get; }
 
         bool Possess(PossessionSystem possessingCharacter);
         void ReleasePossession(bool isOwnPhysicalForm);
