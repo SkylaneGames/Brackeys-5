@@ -5,19 +5,21 @@ using Interaction;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class LeverInteraction : MonoBehaviour, IInteractable
+public class LeverInteraction : MonoBehaviour, IInteractable, IPuzzleElement
 {
     public string Name => name;
 
     public Transform Transform => transform.parent;
 
     public InteractionHighlight HighlightObject { get; protected set; }
-
-    public GameObject Door;
+    //public GameObject Door;
 
     Animation LeverAnimation;
 
     private bool LeverActivated = false;
+    public ParticleSystem particles;
+
+    private bool ElementComplete = false;
 
     public void Awake(){
         HighlightObject = GetComponentInChildren<InteractionHighlight>();
@@ -32,8 +34,8 @@ public class LeverInteraction : MonoBehaviour, IInteractable
     {
         LeverAnimation.Play();
         LeverActivated = true;
-        Door.GetComponent<Animator>().SetTrigger("Open");
-        //Door.GetComponent<BoxCollider>().enabled = false;
+        ElementComplete = true;
+        particles.Stop();
         RemoveHighlight();
         callback?.Invoke();
     }
@@ -45,5 +47,15 @@ public class LeverInteraction : MonoBehaviour, IInteractable
     public void RemoveHighlight()
     {
         HighlightObject?.Hide();
+    }
+
+    public bool IsComplete()
+    {
+        return ElementComplete;
+    }
+
+    public void SetColor(Vector4 color, float intensity)
+    {
+        particles.gameObject.GetComponent<Renderer>().material.SetVector("_EmissionColor", color * intensity);
     }
 }
