@@ -38,6 +38,8 @@ namespace NPC
 
         public float AttackRange = 2f;
 
+        protected IList<CharacterController> HostileCharacters { get; private set; } = new List<CharacterController>();
+
         protected NPCActivity Status = NPCActivity.Idle;
 
         protected virtual void Awake()
@@ -53,6 +55,15 @@ namespace NPC
         {
             Controller.MovementSystem.enabled = false;
             HealthSystem.CharacterKilled += OnDeath;
+            CombatSystem.CharacterAttacked += OnBeingAttacked;
+        }
+
+        private void OnBeingAttacked(CharacterController initiatingCharacter)
+        {
+            if (!HostileCharacters.Contains(initiatingCharacter))
+            {
+                HostileCharacters.Add(initiatingCharacter);
+            }
         }
 
         private void OnDeath()
@@ -89,7 +100,13 @@ namespace NPC
         {
             // Debug.Log($"[{name}] Picking activity");
 
-            var picked = CheckForPlayer();
+            var picked = CheckForHostileTargets();
+            
+            if (!picked)
+            {
+                picked = CheckForPlayer();
+            }
+
             if (!picked && wait <= 0)
             {
                 // Debug.Log($"[{name}] Moving randomly");
@@ -98,7 +115,46 @@ namespace NPC
             }
         }
 
-        protected abstract bool AttackPlayer(CharacterController player);
+        protected abstract bool AttackCharacter(CharacterController player);
+
+        private bool CheckForHostileTargets()
+        {
+            CharacterController closestCharacter = null;
+            var minDistance = float.MaxValue;
+            for (int i = HostileCharacters.Count - 1; i >= 0; i--)
+            {
+                if (HostileCharacters[i].CombatSystem.HealthSystem.IsDead)
+                {
+                    HostileCharacters.RemoveAt(i);
+                }
+                else
+                {
+                    var distanceToCharacterSqr = (HostileCharacters[i].transform.position - transform.position).sqrMagnitude;
+                    if (distanceToCharacterSqr < minDistance)
+                    {
+                        closestCharacter = HostileCharacters[i];
+                        minDistance = distanceToCharacterSqr;
+                    }
+                }
+            }
+
+            if (closestCharacter != null)
+            {
+                if (AttackCharacter(closestCharacter))
+                {
+                    return true;
+                }
+
+                // Debug.Log($"[{name}] Moving to player");
+                var toPlayer = closestCharacter.transform.position - transform.position;
+                var direction = toPlayer.normalized;
+                var moveTo = closestCharacter.transform.position - direction; // stop just before getting to the player
+                NavMeshAgent.SetDestination(moveTo);
+                return true;
+            }
+            
+            return false;
+        }
 
         private bool CheckForPlayer()
         {
@@ -107,11 +163,11 @@ namespace NPC
             var player = VisionSystem.Characters.FirstOrDefault(p => p.GetComponent<NPCController>() == null);
             if (player != null)
             {
-                if (AttackPlayer(player))
+                if (AttackCharacter(player))
                 {
                     return true;
                 }
-                
+
                 // Debug.Log($"[{name}] Moving to player");
                 var toPlayer = player.transform.position - transform.position;
                 var direction = toPlayer.normalized;
@@ -119,6 +175,8 @@ namespace NPC
                 NavMeshAgent.SetDestination(moveTo);
                 return true;
             }
+
+
 
             return false;
         }
