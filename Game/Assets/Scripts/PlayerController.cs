@@ -1,17 +1,55 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Combat;
+using System;
 
 public class PlayerController : SpiritController
 {
     private Rigidbody rb;
     public Camera sceneCamera;
 
+    private GameManager GameManager;
+
+    bool gameEnd = false;
+
+    public override bool IsBusy => base.IsBusy || gameEnd;
+
     protected override void Awake()
     {
         base.Awake();
         rb = GetComponent<Rigidbody>();
+
+        GameManager = FindObjectOfType<GameManager>();
+
     }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        if (PossessionSystem.PhysicalForm != null)
+        {
+            PossessionSystem.PhysicalForm.Controller.CombatSystem.HealthSystem.CharacterKilled += PhysicalFormKilled;
+        }
+    }
+
+    private void PhysicalFormKilled()
+    {
+        GameManager.PlayerDied();
+    }
+
+    public void OnWin()
+    {
+        gameEnd = true;
+    }
+
+    protected override void OnCharacterKilled()
+    {
+        base.OnCharacterKilled();
+
+        GameManager.PlayerDied();
+    }
+
     // Update is called once per frame
     protected override void Update()
     {

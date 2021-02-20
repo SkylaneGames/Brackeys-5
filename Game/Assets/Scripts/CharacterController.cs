@@ -24,6 +24,8 @@ public abstract class CharacterController : MonoBehaviour
 
     public abstract CharacterType CharacterType { get; }
 
+    private Collider _bodyCollider;
+
     public virtual bool IsBusy => InteractionSystem.IsInteracting
         || CombatSystem.IsAttacking;
 
@@ -36,13 +38,17 @@ public abstract class CharacterController : MonoBehaviour
         _combatSystem = GetComponentInChildren<CombatSystem>();
         _animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
+
+        _bodyCollider = transform.GetChild(0).GetComponent<Collider>();
     }
 
     protected virtual void OnCharacterKilled()
     {
         this.enabled = false;
+        Debug.Log($"{gameObject.name} killed");
         _animator.SetTrigger("Dead");
         _audioSource.Play();
+        _bodyCollider.enabled = false;
     }
 
     // Start is called before the first frame update

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7114ed7fc0fa321498cca8aee67254c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activityDelay: 1
+  activityDelay: 5
   AttackRange: 2
 --- !u!195 &8769815827223244142
 NavMeshAgent:
