@@ -132,7 +132,7 @@ namespace Possession
             }
 
             // Characters can only possess characters whose rage level is lower than possession power
-            return interactersPossessionSystem.PoessessionPower > Resistance;
+            return true; // interactersPossessionSystem.PoessessionPower > Resistance;
         }
 
         private PossessionSystem GetPossessionSystem(CharacterController interacter)
