@@ -14,8 +14,8 @@ public abstract class CharacterController : MonoBehaviour
     private CharacterInteraction _interactionSystem;
     private CombatSystem _combatSystem;
     private Animator _animator;
-
     private AudioSource _audioSource;
+    private ParticleSystem _particleSystem;
 
     public virtual CharacterMovement MovementSystem => _movementSystem;
     public virtual CharacterInteraction InteractionSystem => _interactionSystem;
@@ -38,7 +38,7 @@ public abstract class CharacterController : MonoBehaviour
         _combatSystem = GetComponentInChildren<CombatSystem>();
         _animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
-
+        _particleSystem = GetComponentInChildren<ParticleSystem>();
         _bodyCollider = transform.GetChild(0).GetComponent<Collider>();
     }
 
@@ -49,6 +49,9 @@ public abstract class CharacterController : MonoBehaviour
         _animator.SetTrigger("Dead");
         _audioSource.Play();
         _bodyCollider.enabled = false;
+        if(_particleSystem != null) {
+            _particleSystem.Play();
+        }
     }
 
     // Start is called before the first frame update
