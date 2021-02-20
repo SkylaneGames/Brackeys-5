@@ -15,6 +15,8 @@ public abstract class CharacterController : MonoBehaviour
     private CombatSystem _combatSystem;
     private Animator _animator;
 
+    private AudioSource _audioSource;
+
     public virtual CharacterMovement MovementSystem => _movementSystem;
     public virtual CharacterInteraction InteractionSystem => _interactionSystem;
     public virtual CombatSystem CombatSystem => _combatSystem;
@@ -33,12 +35,14 @@ public abstract class CharacterController : MonoBehaviour
         _interactionSystem = GetComponentInChildren<CharacterInteraction>();
         _combatSystem = GetComponentInChildren<CombatSystem>();
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     protected virtual void OnCharacterKilled()
     {
         this.enabled = false;
         _animator.SetTrigger("Dead");
+        _audioSource.Play();
     }
 
     // Start is called before the first frame update

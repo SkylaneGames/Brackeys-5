@@ -114,6 +114,7 @@ namespace Possession
             animComplete = false;
             SpiritParticles.SetActive(true);
             SpiritParticles.GetComponent<Animator>().SetTrigger("Unpossess");
+            SpiritParticles.GetComponent<AudioSource>().PlayOneShot(SpiritParticles.GetComponent<AudioSource>().clip);
             StartCoroutine("CallAfterUnpossession");
             //_animator.SetTrigger("Unpossess");
         }
@@ -123,6 +124,7 @@ namespace Possession
             animComplete = false;
             SpiritParticles.SetActive(true);
             SpiritParticles.GetComponent<Animator>().SetTrigger("Possess");
+            SpiritParticles.GetComponent<AudioSource>().PlayOneShot(SpiritParticles.GetComponent<AudioSource>().clip);
             StartCoroutine("CallAfterPossession");
             //_animator.SetTrigger("Possess");
 

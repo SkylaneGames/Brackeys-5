@@ -33,6 +33,7 @@ public class LeverInteraction : MonoBehaviour, IInteractable, IPuzzleElement
     public void Interact(CharacterController interacter, Action callback = null)
     {
         LeverAnimation.Play();
+        GetComponentInParent<AudioSource>().PlayOneShot(GetComponentInParent<AudioSource>().clip);
         LeverActivated = true;
         ElementComplete = true;
         particles.Stop();

@@ -15,6 +15,7 @@ namespace Combat
         public SpiritController Controller { get; private set; }
 
         public bool IsCasting { get; private set; } = false;
+        public AudioClip[] audioClips;
 
         void Awake()
         {
@@ -73,6 +74,7 @@ namespace Combat
 
             StartCoroutine("TriggerAbilityFinished", ability);
             Abilities[ability].Use(this);
+            GetComponentInParent<AudioSource>().PlayOneShot(audioClips[ability],0.05f);
         }
 
         private IEnumerator TriggerAbilityFinished(int ability)

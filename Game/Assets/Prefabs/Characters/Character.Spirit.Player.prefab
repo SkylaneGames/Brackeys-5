@@ -163,7 +163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4509518952788636182, guid: 6b05687d7dec7554a8a93f6f4ad9f852, type: 3}
       propertyPath: m_Name
-      value: Player Character Variant
+      value: Character.Spirit.Player
       objectReference: {fileID: 0}
     - target: {fileID: 5809624301863270416, guid: 6b05687d7dec7554a8a93f6f4ad9f852, type: 3}
       propertyPath: m_Materials.Array.data[0]

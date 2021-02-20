@@ -14,6 +14,8 @@ public class CharacterMovement : MonoBehaviour
     CharacterAnimation animation;
     float rotation;
 
+    public AudioClip[] audioClips;
+
     void Awake(){
         body =  GetComponent<Rigidbody>();
         animation = GetComponent<CharacterAnimation>();
@@ -27,19 +29,20 @@ public class CharacterMovement : MonoBehaviour
         body.velocity = currentTranslation;
         if(body.velocity.magnitude>0.3f){
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(new Vector3(body.velocity.x, 0, body.velocity.z).normalized), smooth * Time.deltaTime) ;
-            //transform.rotation = Quaternion.LookRotation(new Vector3(body.velocity.x, 0, body.velocity.z).normalized);
+            if(!GetComponentInParent<AudioSource>().isPlaying){
+                GetComponentInParent<AudioSource>().PlayOneShot(RandomClip(),0.2f);
+            }
         }
-        //transform.Rotate(0f, rotation, 0f, Space.Self);
-        //currentTranslation = Vector3.zero;
-        //rotation = 0f;
     }
 
     void LateUpdate(){
         if(body.velocity.magnitude>0.5f){
             animation.RunForward();
+            
         }
         else{
             animation.StopMoving();
+            //GetComponentInParent<AudioSource>().Stop();
         }
 
         
@@ -52,5 +55,9 @@ public class CharacterMovement : MonoBehaviour
 
     public void StopMoving(){
         currentTranslation = Vector3.zero;
+    }
+
+    private AudioClip RandomClip(){
+        return audioClips[UnityEngine.Random.Range(0, audioClips.Length)];
     }
 }

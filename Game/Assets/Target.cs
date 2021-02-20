@@ -18,6 +18,7 @@ public class Target : MonoBehaviour, IPuzzleElement
             isHit = true;
             targetRenderer.material.SetVector("_EmissionColor", new Vector4(0.0f,0.5f,0.0f,1f) * 4f);
             GetComponentInChildren<ParticleSystem>().Stop();
+            GetComponent<AudioSource>().PlayOneShot(GetComponent<AudioSource>().clip);
         }
     }
 
