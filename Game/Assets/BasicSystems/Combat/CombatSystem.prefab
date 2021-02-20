@@ -63,6 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ResistantToPhysicalDamage: 0
   ResistantToMagicalDamage: 0
+  HealthRegenOverTime: 0
   armourEffectiveness: 0.8
   armourBlockChance: 0.1
   ArmourResistances: []
