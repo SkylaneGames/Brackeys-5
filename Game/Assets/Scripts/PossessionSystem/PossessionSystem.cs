@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Possession
@@ -8,6 +9,8 @@ namespace Possession
     [RequireComponent(typeof(Animator))]
     public class PossessionSystem : MonoBehaviour
     {
+        public event Action ExceededTimeAwayFromBody;
+
         private class PossessionArgs
         {
             public IPossessable character;
@@ -21,6 +24,19 @@ namespace Possession
         public IPossessable PossessedCharacter = null;
 
         public Possessable PhysicalForm = null;
+        public GameObject BodyIndicator = null;
+
+        [Range(0,50)]
+        public float MaxDistanceFromBody = 30;
+
+        [Range(0, 10)]
+        public float DurationAllowedAwayFromBody = 5f;
+
+        public TMP_Text ReturnToBodyWarning;
+
+        private float currentTimeAwayFromBody;
+
+        private bool timeExeededTriggered = false;
 
         //private Possess_CameraFollow CameraSystem;
 
@@ -75,6 +91,28 @@ namespace Possession
                 transform.position = PossessedCharacter.Controller.transform.position;
                 transform.rotation = PossessedCharacter.Controller.transform.rotation;
             }
+
+            if (PhysicalForm != null && !timeExeededTriggered)
+            {
+                if ((PhysicalForm.transform.position - transform.position).magnitude > MaxDistanceFromBody)
+                {
+                    currentTimeAwayFromBody -= Time.fixedDeltaTime;
+                    ReturnToBodyWarning.enabled = true;
+                    ReturnToBodyWarning.text = $"TOO FAR FROM BODY ({currentTimeAwayFromBody.ToString("0.0")})";
+
+                    if (currentTimeAwayFromBody <= 0 && !timeExeededTriggered)
+                    {
+                        ExceededTimeAwayFromBody?.Invoke();
+                        ReturnToBodyWarning.enabled = false;
+                        timeExeededTriggered = true;
+                    }
+                }
+                else
+                {
+                    currentTimeAwayFromBody = DurationAllowedAwayFromBody;
+                    ReturnToBodyWarning.enabled = false;
+                }
+            }
         }
 
         public void Possess(IPossessable character, Action callback)
@@ -94,6 +132,12 @@ namespace Possession
                 var lookTarget = character.Controller.transform.position;
                 lookTarget.y = transform.position.y;
                 transform.LookAt(lookTarget, Vector3.up);
+                var isOwnPhysicalForm = (IPossessable)PhysicalForm == character;
+
+                if (isOwnPhysicalForm)
+                {
+                    BodyIndicator.SetActive(false);
+                }
 
                 if (isRepossession)
                 {
@@ -186,8 +230,14 @@ namespace Possession
             Debug.Log("Unpossession complete");
             animComplete = true;
             PossessionReleased?.Invoke();
-            PossessedCharacter = null;
 
+            var isOwnPhysicalForm = (IPossessable)PhysicalForm == PossessedCharacter;
+            if (isOwnPhysicalForm)
+            {
+                BodyIndicator.SetActive(true);
+            }
+            PossessedCharacter = null;
+        
             unpossessionCallback?.Invoke();
             unpossessionCallback = null;
         }
@@ -202,6 +252,10 @@ namespace Possession
             // Is this the characters own physical form? If not, enrage it.
             var isOwnPhysicalForm = (IPossessable)PhysicalForm == PossessedCharacter;
             PossessedCharacter.ReleasePossession(isOwnPhysicalForm);
+            if (isOwnPhysicalForm)
+            {
+                
+            }
 
             // Handle spirit form
             if (!repossession)
@@ -222,6 +276,15 @@ namespace Possession
         private Vector3 GetPositionAfterPossession()
         {
             return PossessedCharacter.Controller.transform.position - PossessedCharacter.Controller.transform.forward;
+        }
+
+        void OnDrawGizmos()
+        {
+            if (PhysicalForm != null)
+            {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawWireSphere(PhysicalForm.transform.position, MaxDistanceFromBody);
+            }
         }
     }
 }

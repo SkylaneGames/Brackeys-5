@@ -12,7 +12,7 @@ public abstract class CharacterController : MonoBehaviour
 {
     private CharacterMovement _movementSystem;
     private CharacterInteraction _interactionSystem;
-    private CombatSystem _combatSystem;
+    protected CombatSystem _combatSystem;
     private Animator _animator;
     private AudioSource _audioSource;
     private ParticleSystem _particleSystem;

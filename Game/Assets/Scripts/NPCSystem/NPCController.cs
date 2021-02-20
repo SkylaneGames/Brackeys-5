@@ -75,6 +75,12 @@ namespace NPC
         // Update is called once per frame
         protected virtual void Update()
         {
+            if (HealthSystem.IsDead)
+            {
+                NavMeshAgent.isStopped = true;
+                return;
+            }
+
             if (Controller.IsBusy)
             {
                 NavMeshAgent.isStopped = true;
