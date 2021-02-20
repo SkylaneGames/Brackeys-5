@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e22480ccc8e037e40989fa91ac23d4d0, type: 3}
-  m_Name: Fireball
+  m_Name: Spirit Blast
   m_EditorClassIdentifier: 
-  Name: Fireball
-  Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  CastTime: 1
-  Cooldown: 3
-  Type: 2
-  Prefab: {fileID: 149881385341174853, guid: 848032a209a376446b4529b279cd6579, type: 3}
+  Name: Fireblast
+  Icon: {fileID: 0}
+  CastTime: 2
+  Cooldown: 5
+  Type: 1
+  Prefab: {fileID: 3992217404656486321, guid: 3c8b2da97f876974a92c566c6b5606a2, type: 3}
+  Radius: 4

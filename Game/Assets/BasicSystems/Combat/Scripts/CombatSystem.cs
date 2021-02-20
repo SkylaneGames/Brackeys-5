@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Combat
@@ -127,9 +128,17 @@ namespace Combat
 
             if (weapon != null && weapon.Caller != this)
             {
-                Debug.Log($"[{name}] hit by '{collider.name}'");
-                TakeDamage(weapon.Damage);
-                CharacterAttacked?.Invoke(collider.GetComponentInParent<CharacterController>());
+                var physicalDamage = weapon.Damage.Any(p => p.DamageType == DamageType.Physical);
+                var magicDamage = weapon.Damage.Any(p => p.DamageType == DamageType.Magic);
+
+                if ((physicalDamage && !HealthSystem.ResistantToPhysicalDamage) || (magicDamage && !HealthSystem.ResistantToMagicalDamage))
+                {
+                    var attacker = collider.GetComponentInParent<CharacterController>();
+                    Debug.Log($"[{name}] hit by '{collider.name}'");
+                    TakeDamage(weapon.Damage);
+                    CharacterAttacked?.Invoke(attacker);
+                }
+
             }
         }
     }

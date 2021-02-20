@@ -41312,6 +41312,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy.Physical.Hard
       objectReference: {fileID: 0}
+    - target: {fileID: 978357192205946141, guid: 9db87b1478fca5544be98636b8d74280, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4765880574916914261, guid: 9db87b1478fca5544be98636b8d74280, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -41368,6 +41372,10 @@ PrefabInstance:
     - target: {fileID: 624325706565527390, guid: 41387755308b9224eab7717badad3902, type: 3}
       propertyPath: m_Name
       value: Enemy.Physical.Easy
+      objectReference: {fileID: 0}
+    - target: {fileID: 624325706565527390, guid: 41387755308b9224eab7717badad3902, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 931527545823339007, guid: 41387755308b9224eab7717badad3902, type: 3}
       propertyPath: m_AnchorMax.x
@@ -41441,6 +41449,10 @@ PrefabInstance:
     - target: {fileID: 4074733383745555389, guid: 954b79d6860dd56498e919cc11ac7ac0, type: 3}
       propertyPath: m_Name
       value: Enemy.Physical.Medium
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074733383745555389, guid: 954b79d6860dd56498e919cc11ac7ac0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4380634500902369927, guid: 954b79d6860dd56498e919cc11ac7ac0, type: 3}
       propertyPath: m_AnchorMax.x
