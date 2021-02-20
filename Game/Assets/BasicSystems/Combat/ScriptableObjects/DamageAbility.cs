@@ -7,6 +7,8 @@ namespace Combat
     [CreateAssetMenu(fileName = "New Damage", menuName = "Abilities/Damage")]
     public class DamageAbility : Ability
     {
+        public float Radius = 4;
+
         public override void Use(AbilitySystem caller)
         {
             if (Type == AbilityType.Self)

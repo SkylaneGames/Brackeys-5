@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Combat
 {
     public class AbilitySystem : MonoBehaviour
     {
-        public Ability[] Abilities = new Ability[5];
-        private float[] cooldowns;
+        public List<Ability> Abilities = new List<Ability>(5);
+        public float[] cooldowns { get; private set; }
+
+        public IDictionary<int, Ability> AvailableAbilities => Abilities.Where(p => p != null && cooldowns[Abilities.IndexOf(p)] <= 0).ToDictionary(p => Abilities.IndexOf(p), p => p);
 
         public SpiritController Controller { get; private set; }
 
@@ -20,7 +23,7 @@ namespace Combat
 
         void Start()
         {
-            cooldowns = new float[Abilities.Length];
+            cooldowns = new float[Abilities.Count];
         }
 
         void Update()
@@ -30,12 +33,12 @@ namespace Combat
 
         private void UpdateCooldowns()
         {
-            for (int i = 0; i < Abilities.Length; i++)
+            for (int i = 0; i < Abilities.Count; i++)
             {
                 if (cooldowns[i] > 0)
                 {
                     cooldowns[i] -= Time.deltaTime;
-                    cooldowns[i] = cooldowns[i] < 0 ? 0: cooldowns[i];
+                    cooldowns[i] = cooldowns[i] < 0 ? 0 : cooldowns[i];
                 }
             }
         }
@@ -46,13 +49,13 @@ namespace Combat
             {
                 return;
             }
-            
+
             if (IsCasting)
             {
                 return;
             }
 
-            if (ability < 0 || ability >= Abilities.Length || Abilities[ability] == null)
+            if (ability < 0 || ability >= Abilities.Count || Abilities[ability] == null)
             {
                 Debug.LogWarning($"Invalid ability '{ability}'");
                 return;

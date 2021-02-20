@@ -4,7 +4,7 @@ public class PhysicalController : CharacterController
 {
     public override CharacterType CharacterType => CharacterType.Physical;
 
-    private IPossessable Possessable;
+    public IPossessable Possessable { get; private set; }
 
     protected virtual void OnPossessed()
     {

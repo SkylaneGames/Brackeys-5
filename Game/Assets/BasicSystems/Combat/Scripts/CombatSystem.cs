@@ -73,10 +73,16 @@ namespace Combat
             if (CanAttack)
             {
                 IsAttacking = true;
-                SetWeaponActive(true);
+                StartCoroutine("SetAttackedStartedAfterDuration");
                 StartCoroutine("SetAttackedFinishedAfterDuration");
                 _animator.SetTrigger("Attack");
             }
+        }
+
+        private IEnumerator SetAttackedStartedAfterDuration()
+        {
+            yield return new WaitForSeconds(0.5f);
+            SetWeaponActive(true);
         }
 
         private IEnumerator SetAttackedFinishedAfterDuration()
