@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33301677928161508}
   - component: {fileID: 23732856828062938}
   - component: {fileID: 371938191}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Doorway01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4957,6 +4957,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door02
       objectReference: {fileID: 0}
+    - target: {fileID: 175432, guid: 8f8b4c2ea7db39f4781dead27f8b1c3d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 190876, guid: 8f8b4c2ea7db39f4781dead27f8b1c3d, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 460866, guid: 8f8b4c2ea7db39f4781dead27f8b1c3d, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -5046,6 +5054,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PillarStone01
       objectReference: {fileID: 0}
+    - target: {fileID: 154028, guid: 73c08e84ae0965a4b9674d1c89f21e59, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 409222, guid: 73c08e84ae0965a4b9674d1c89f21e59, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -5107,6 +5119,10 @@ PrefabInstance:
     - target: {fileID: 154028, guid: 73c08e84ae0965a4b9674d1c89f21e59, type: 3}
       propertyPath: m_Name
       value: PillarStone01
+      objectReference: {fileID: 0}
+    - target: {fileID: 154028, guid: 73c08e84ae0965a4b9674d1c89f21e59, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 409222, guid: 73c08e84ae0965a4b9674d1c89f21e59, type: 3}
       propertyPath: m_RootOrder
