@@ -16,6 +16,7 @@ namespace CoreSystems.MenuSystem
 
         public void PauseGame()
         {
+            Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0;
             IsPaused = true;
             gameObject.SetActive(true);
@@ -23,6 +24,7 @@ namespace CoreSystems.MenuSystem
 
         public void UnpauseGame()
         {
+            Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1;
             IsPaused = false;
             gameObject.SetActive(false);
@@ -31,6 +33,7 @@ namespace CoreSystems.MenuSystem
         public void Back()
         {
             UnpauseGame();
+            Cursor.lockState = CursorLockMode.None;
             LevelLoader.Instance.LoadLevel(Level.Menu);
         }
     }
