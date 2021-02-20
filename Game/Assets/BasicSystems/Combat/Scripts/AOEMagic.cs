@@ -22,7 +22,7 @@ namespace Combat
 
             if (lifetime <= 0)
             {
-                Destroy(this);
+                Destroy(gameObject);
             }
         }
     }
