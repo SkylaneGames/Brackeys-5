@@ -11,12 +11,12 @@ public class CharacterMovement : MonoBehaviour
     public float Speed = 5f;
     Rigidbody body;
     Vector3 currentTranslation;
-    CharacterAnimation animation;
+    CharacterAnimation _animation;
     float rotation;
 
     void Awake(){
         body =  GetComponent<Rigidbody>();
-        animation = GetComponent<CharacterAnimation>();
+        _animation = GetComponent<CharacterAnimation>();
     }
 
 
@@ -36,10 +36,10 @@ public class CharacterMovement : MonoBehaviour
 
     void LateUpdate(){
         if(body.velocity.magnitude>0.5f){
-            animation.RunForward();
+            _animation.RunForward();
         }
         else{
-            animation.StopMoving();
+            _animation.StopMoving();
         }
 
         
