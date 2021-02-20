@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 2310168}
   - component: {fileID: 9597262}
   - component: {fileID: 64889696469355050}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Candle01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &413552
 Transform:
@@ -129,12 +129,12 @@ GameObject:
   - component: {fileID: 3050188513300549774}
   - component: {fileID: 3611797831070287086}
   - component: {fileID: 5239789359077475537}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3050188513300549774
 Transform:
@@ -4941,12 +4941,12 @@ GameObject:
   m_Component:
   - component: {fileID: 9089220229551362698}
   - component: {fileID: 7227396877885500395}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &9089220229551362698
 Transform:
@@ -5013,7 +5013,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1

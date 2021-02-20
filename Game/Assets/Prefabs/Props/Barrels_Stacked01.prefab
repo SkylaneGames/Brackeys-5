@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4138785936365486308}
   - component: {fileID: 4138785936364417020}
   - component: {fileID: 7630124175940009093}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barrels_Stacked01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
