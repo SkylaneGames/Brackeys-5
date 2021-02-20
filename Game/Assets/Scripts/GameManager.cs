@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         GameOverText.SetActive(true);
         yield return new WaitForSeconds(2f);
-
+        Cursor.lockState = CursorLockMode.None;
         LevelLoader.LoadLevel(Level.Menu);
     }
 
@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
         WinText.SetActive(true);
         yield return new WaitForSeconds(2f);
 
+        Cursor.lockState = CursorLockMode.None;
         LevelLoader.LoadLevel(Level.Menu);
     }
 }

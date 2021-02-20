@@ -64,7 +64,10 @@ namespace Combat
 
         void Update()
         {
-            CurrentHealth += HealthRegenOverTime * Time.deltaTime;
+            if (HealthRegenOverTime > 0)
+            {
+                CurrentHealth += HealthRegenOverTime * Time.deltaTime;
+            }
         }
 
         public void Damage(DamageInfo damage)

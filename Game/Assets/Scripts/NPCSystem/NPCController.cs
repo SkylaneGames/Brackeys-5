@@ -69,6 +69,7 @@ namespace NPC
         private void OnDeath()
         {
             this.enabled = false;
+            NavMeshAgent.isStopped = true;
         }
 
         // Update is called once per frame
