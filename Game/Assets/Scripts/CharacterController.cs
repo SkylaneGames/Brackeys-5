@@ -15,27 +15,10 @@ public abstract class CharacterController : MonoBehaviour
     private CombatSystem _combatSystem;
     private Animator _animator;
 
-
-
-    public virtual CharacterMovement MovementSystem
-    {
-        get { return _movementSystem; }
-    }
-
-    public virtual CharacterInteraction InteractionSystem
-    {
-        get { return _interactionSystem; }
-    }
-
-    public virtual CombatSystem CombatSystem
-    {
-        get { return _combatSystem; }
-    }
-
-    public virtual Animator Animator
-    {
-        get { return _animator; }
-    }
+    public virtual CharacterMovement MovementSystem => _movementSystem;
+    public virtual CharacterInteraction InteractionSystem => _interactionSystem;
+    public virtual CombatSystem CombatSystem => _combatSystem;
+    public virtual Animator Animator => _animator;
 
     public abstract CharacterType CharacterType { get; }
 
@@ -62,7 +45,7 @@ public abstract class CharacterController : MonoBehaviour
     protected virtual void Start()
     {
         InteractionSystem.UseHighlights = ShowHightlights;
-        CombatSystem.HealthSystem.CharacterKilled += OnCharacterKilled;
+        _combatSystem.HealthSystem.CharacterKilled += OnCharacterKilled;
     }
 
     // Update is called once per frame

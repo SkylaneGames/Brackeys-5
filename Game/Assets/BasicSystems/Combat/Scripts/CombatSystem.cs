@@ -6,11 +6,13 @@ using UnityEngine;
 namespace Combat
 {
     public delegate void RageChanged(float normalisedValue);
+    public delegate void CharacterAttacked(CharacterController initiatingCharacter);
 
     [RequireComponent(typeof(Collider))]
     [RequireComponent(typeof(HealthSystem))]
     public class CombatSystem : MonoBehaviour
     {
+        public event CharacterAttacked CharacterAttacked;
         public event RageChanged RageChanged;
 
         [SerializeField]
@@ -73,17 +75,29 @@ namespace Combat
             if (CanAttack)
             {
                 IsAttacking = true;
-                SetWeaponActive(true);
+                StartCoroutine("EnableHitColliderAfterDuration");
+                StartCoroutine("DisableHitColliderAfterDuration");
                 StartCoroutine("SetAttackedFinishedAfterDuration");
                 _animator.SetTrigger("Attack");
             }
+        }
+
+        private IEnumerator EnableHitColliderAfterDuration()
+        {
+            yield return new WaitForSeconds(0.5f);
+            SetWeaponActive(true);
+        }
+
+        private IEnumerator DisableHitColliderAfterDuration()
+        {
+            yield return new WaitForSeconds(0.6f);
+            SetWeaponActive(false);
         }
 
         private IEnumerator SetAttackedFinishedAfterDuration()
         {
             yield return new WaitForSeconds(attackDuration);
             IsAttacking = false;
-            SetWeaponActive(false);
         }
 
         private void SetWeaponActive(bool active)
@@ -115,6 +129,7 @@ namespace Combat
             {
                 Debug.Log($"[{name}] hit by '{collider.name}'");
                 TakeDamage(weapon.Damage);
+                CharacterAttacked?.Invoke(collider.GetComponentInParent<CharacterController>());
             }
         }
     }

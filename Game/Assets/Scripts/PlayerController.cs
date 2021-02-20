@@ -79,7 +79,7 @@ public class PlayerController : SpiritController
 
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
-            UnPossess();
+            Unpossess();
         }
 
         if (Keyboard.current.digit1Key.wasPressedThisFrame)
