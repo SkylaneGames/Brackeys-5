@@ -24,7 +24,7 @@ namespace NPC
             _spiritController = base.Controller as SpiritController;
         }
 
-        protected override bool AttackPlayer(CharacterController player)
+        protected override bool AttackCharacter(CharacterController player)
         {
 
             var availableAbilities = AbilitySystem.AvailableAbilities;

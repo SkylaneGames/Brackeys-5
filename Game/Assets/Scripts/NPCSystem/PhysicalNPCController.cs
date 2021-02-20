@@ -29,7 +29,7 @@ namespace NPC
             Possessable.PossessionReleased += OnUnpossessed;
         }
 
-        protected override bool AttackPlayer(CharacterController player)
+        protected override bool AttackCharacter(CharacterController player)
         {
             var distanceToPlayer = (player.transform.position - transform.position).magnitude;
             if (distanceToPlayer <= AttackRange)
