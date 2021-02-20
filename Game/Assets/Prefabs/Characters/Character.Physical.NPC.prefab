@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79a74b15f7a74a144aa86832609ea153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activityDelay: 1
+  activityDelay: 5
+  AttackRange: 2.5
 --- !u!195 &2040825044998635158
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -56,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4582110616663379003, guid: 8287c6e072466724185698b3c8b15327, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.97
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4582110616663379003, guid: 8287c6e072466724185698b3c8b15327, type: 3}
       propertyPath: m_LocalPosition.z
@@ -105,7 +106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2774621419823659003, guid: 904618d091b32c34b96e01c792ab63d6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.24
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2774621419823659003, guid: 904618d091b32c34b96e01c792ab63d6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -113,7 +114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2774621419823659003, guid: 904618d091b32c34b96e01c792ab63d6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -25.86
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2774621419823659003, guid: 904618d091b32c34b96e01c792ab63d6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -149,7 +150,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7579966040407168691, guid: 904618d091b32c34b96e01c792ab63d6, type: 3}
       propertyPath: m_Name
-      value: Physical NPC
+      value: Physical NPC Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7887506391807512594, guid: 904618d091b32c34b96e01c792ab63d6, type: 3}
       propertyPath: m_AnchorMax.x

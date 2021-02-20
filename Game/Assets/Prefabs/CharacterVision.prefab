@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   perception: 0.4
-  threshold: 1
+  threshold: 0.8
   FieldOfView: 300
-  MaximumViewDistance: 50
-  LocalAwareness: 1
+  MaximumViewDistance: 30
+  LocalAwareness: 2
