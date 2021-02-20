@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Combat
 {
     public delegate void CharacterHit(int damage);
-    public delegate void CharacterHealed(int amount);
+    public delegate void CharacterHealed(float amount);
     public delegate void HealthChanged(float normalisedValue);
 
     [RequireComponent(typeof(Collider))]
@@ -30,6 +30,9 @@ namespace Combat
         public bool ResistantToPhysicalDamage = false;
         public bool ResistantToMagicalDamage = false;
 
+        [Range(0,5)]
+        public float HealthRegenOverTime = 0f;
+
         [Range(0, 1)]
         [Tooltip("The chance of armour reducing amount of damage taken. (Set to 1 to always remove armour rating from damage value)")]
         public float armourEffectiveness = 0.8f;
@@ -43,8 +46,8 @@ namespace Combat
         [Range(0, 100)]
         public int MaxHealth = 10;
 
-        private int currentHealth;
-        public int CurrentHealth
+        private float currentHealth;
+        public float CurrentHealth
         {
             get { return currentHealth; }
             private set
@@ -57,6 +60,11 @@ namespace Combat
         void Start()
         {
             CurrentHealth = MaxHealth;
+        }
+
+        void Update()
+        {
+            CurrentHealth += HealthRegenOverTime * Time.deltaTime;
         }
 
         public void Damage(DamageInfo damage)

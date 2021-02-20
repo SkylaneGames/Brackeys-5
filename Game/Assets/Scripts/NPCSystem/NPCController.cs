@@ -111,7 +111,7 @@ namespace NPC
             {
                 // Debug.Log($"[{name}] Moving randomly");
                 NavMeshAgent.SetDestination(GetRandomPosition(5));
-                wait = activityDelay;
+                wait = activityDelay + Random.Range(-3,3);
             }
         }
 
@@ -123,6 +123,10 @@ namespace NPC
             var minDistance = float.MaxValue;
             for (int i = HostileCharacters.Count - 1; i >= 0; i--)
             {
+                if (HostileCharacters[i] == null)
+                {
+                    continue;
+                }
                 if (HostileCharacters[i].CombatSystem.HealthSystem.IsDead)
                 {
                     HostileCharacters.RemoveAt(i);
@@ -183,9 +187,20 @@ namespace NPC
 
         protected Vector3 GetRandomPosition(float maxRadius)
         {
-            var direction = Quaternion.AngleAxis(Random.value * 360, Vector3.up) * transform.forward;
+            var validPosition = false;
 
-            var newPos = transform.position + direction * maxRadius * Random.value;
+            Vector3 newPos = Vector3.zero;
+            int tries = 10;
+            while (!validPosition && tries > 0)
+            {
+                var direction = Quaternion.AngleAxis(Random.value * 360, Vector3.up) * transform.forward;
+
+                newPos = transform.position + direction * maxRadius * Random.value;
+
+                NavMesh.SamplePosition(newPos, out var hit, 1, 0);
+
+                tries--;
+            }
 
             return newPos;
 

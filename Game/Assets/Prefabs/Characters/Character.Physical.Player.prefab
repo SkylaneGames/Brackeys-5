@@ -65,7 +65,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7579966040407168691, guid: 904618d091b32c34b96e01c792ab63d6, type: 3}
       propertyPath: m_Name
-      value: Player Physical Character Variant
+      value: Character.Physical.Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7579966040407168691, guid: 904618d091b32c34b96e01c792ab63d6, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7887506391807512594, guid: 904618d091b32c34b96e01c792ab63d6, type: 3}
       propertyPath: m_AnchorMax.x

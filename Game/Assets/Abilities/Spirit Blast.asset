@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e22480ccc8e037e40989fa91ac23d4d0, type: 3}
   m_Name: Spirit Blast
   m_EditorClassIdentifier: 
-  Name: Fireblast
+  Name: Spirit Blast
   Icon: {fileID: 0}
   CastTime: 2
   Cooldown: 5
