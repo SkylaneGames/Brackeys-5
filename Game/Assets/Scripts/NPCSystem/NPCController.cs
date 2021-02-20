@@ -52,6 +52,12 @@ namespace NPC
         protected virtual void Start()
         {
             Controller.MovementSystem.enabled = false;
+            HealthSystem.CharacterKilled += OnDeath;
+        }
+
+        private void OnDeath()
+        {
+            this.enabled = false;
         }
 
         // Update is called once per frame
@@ -92,6 +98,8 @@ namespace NPC
             }
         }
 
+        protected abstract bool AttackPlayer(CharacterController player);
+
         private bool CheckForPlayer()
         {
             // Debug.Log($"[{name}] {VisionSystem.Characters.Count()} characters in view");
@@ -99,11 +107,8 @@ namespace NPC
             var player = VisionSystem.Characters.FirstOrDefault(p => p.GetComponent<NPCController>() == null);
             if (player != null)
             {
-                if ((player.transform.position - transform.position).magnitude <= AttackRange)
+                if (AttackPlayer(player))
                 {
-                    transform.LookAt(player.transform, Vector3.up);
-                    // Debug.Log($"[{name}] Attacking");
-                    CombatSystem.Attack();
                     return true;
                 }
                 

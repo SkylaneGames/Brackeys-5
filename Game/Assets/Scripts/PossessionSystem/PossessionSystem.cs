@@ -184,6 +184,7 @@ namespace Possession
             Debug.Log("Unpossession complete");
             animComplete = true;
             PossessionReleased?.Invoke();
+            PossessedCharacter = null;
 
             unpossessionCallback?.Invoke();
             unpossessionCallback = null;
@@ -207,7 +208,6 @@ namespace Possession
                 transform.position = GetPositionAfterPossession();
                 ShowSpiritForm();
                 //CameraSystem.Target = transform;
-                PossessedCharacter = null;
             }
             else
             {

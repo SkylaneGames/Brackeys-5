@@ -29,6 +29,20 @@ namespace NPC
             Possessable.PossessionReleased += OnUnpossessed;
         }
 
+        protected override bool AttackPlayer(CharacterController player)
+        {
+            var distanceToPlayer = (player.transform.position - transform.position).magnitude;
+            if (distanceToPlayer <= AttackRange)
+            {
+                transform.LookAt(player.transform, Vector3.up);
+                // Debug.Log($"[{name}] Attacking");
+                CombatSystem.Attack();
+                return true;
+            }
+            
+            return false;
+        }
+
         private void OnPossessed()
         {
             enabled = false;

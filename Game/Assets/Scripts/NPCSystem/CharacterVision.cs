@@ -138,14 +138,27 @@ namespace NPC
                 return false;
             }
             
+            // Only spirits can see other spirits
             if (character.CharacterType == CharacterType.Spirit && NPCController.Controller.CharacterType != CharacterType.Spirit)
             {
                 return false;
             }
-            else
+            // Spirits don't interact with physical players (possessable is handled in the Interactables not characters)
+            else if (character.CharacterType == CharacterType.Physical && NPCController.Controller.CharacterType == CharacterType.Spirit)
             {
-                return IsWithinView(character.transform);
+                return false;
             }
+            else if (character.CharacterType == CharacterType.Spirit)
+            {
+                var spirit = character as SpiritController;
+                // Spirits currently possessing are hidden to other spirits
+                if (spirit.PossessionSystem.IsPossessing)
+                {
+                    return false;
+                }
+            }
+            
+            return IsWithinView(character.transform);
         }
 
         protected bool IsWithinView(Transform target)
