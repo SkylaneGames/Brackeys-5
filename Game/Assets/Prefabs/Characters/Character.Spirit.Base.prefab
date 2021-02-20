@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0719419282414145b05dc6c0897994d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitPossessedCharacter: {fileID: 0}
   PhysicalForm: {fileID: 0}
   possessionPower: 0.4
   SpiritParticles: {fileID: 8731345554918678554}
@@ -101,7 +102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8317650378047768454, guid: 7b0573fb98809f246ac8cafba2fafa04, type: 3}
       propertyPath: m_Name
-      value: Spirit Character Variant
+      value: Character.Spirit.Base
       objectReference: {fileID: 0}
     - target: {fileID: 8586470310920926908, guid: 7b0573fb98809f246ac8cafba2fafa04, type: 3}
       propertyPath: m_AnchorMax.x

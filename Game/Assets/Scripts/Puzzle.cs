@@ -39,6 +39,8 @@ public class Puzzle : MonoBehaviour
             if(!DoorOpen){
                 Door.GetComponent<Animator>().SetTrigger("Open");
                 Door.GetComponentInChildren<ParticleSystem>().Stop();
+                Door.GetComponent<AudioSource>().PlayOneShot(Door.GetComponent<AudioSource>().clip);
+                DoorOpen = true;
             }
         }
     }

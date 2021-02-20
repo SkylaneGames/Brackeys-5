@@ -15,6 +15,8 @@ public abstract class CharacterController : MonoBehaviour
     private CombatSystem _combatSystem;
     private Animator _animator;
 
+    private AudioSource _audioSource;
+
     public virtual CharacterMovement MovementSystem => _movementSystem;
     public virtual CharacterInteraction InteractionSystem => _interactionSystem;
     public virtual CombatSystem CombatSystem => _combatSystem;
@@ -35,6 +37,7 @@ public abstract class CharacterController : MonoBehaviour
         _interactionSystem = GetComponentInChildren<CharacterInteraction>();
         _combatSystem = GetComponentInChildren<CombatSystem>();
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
 
         _bodyCollider = transform.GetChild(0).GetComponent<Collider>();
     }
@@ -44,6 +47,7 @@ public abstract class CharacterController : MonoBehaviour
         this.enabled = false;
         Debug.Log($"{gameObject.name} killed");
         _animator.SetTrigger("Dead");
+        _audioSource.Play();
         _bodyCollider.enabled = false;
     }
 

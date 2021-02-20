@@ -24,6 +24,7 @@ public class FloorPuzzle : MonoBehaviour, IPuzzleElement
         if(collider.gameObject.tag.Equals("PuzzleBox")){
             isComplete = true;
             completeParticles.Play();
+            GetComponent<AudioSource>().PlayOneShot(GetComponent<AudioSource>().clip);
         }
     }
 

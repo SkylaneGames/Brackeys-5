@@ -23,6 +23,8 @@ namespace Combat
         [Range(0, 1)]
         private float rage = 0;
 
+        private CombatAudio combatAudio;
+
         public float Rage
         {
             get { return rage; }
@@ -61,7 +63,7 @@ namespace Combat
             }
 
             weapon = GetComponentInChildren<Weapon>();
-
+            combatAudio = GetComponent<CombatAudio>();
             _healthSystem.CharacterHit += OnCharacterHit;
         }
 
@@ -69,10 +71,12 @@ namespace Combat
         {
             float dRage = damage * rageIncreasePerDamge;
             Rage += dRage;
+            combatAudio.HitSound();
         }
 
         public void Attack()
         {
+            
             if (CanAttack)
             {
                 IsAttacking = true;
@@ -87,6 +91,7 @@ namespace Combat
         {
             yield return new WaitForSeconds(0.5f);
             SetWeaponActive(true);
+            combatAudio.AttackSound();
         }
 
         private IEnumerator DisableHitColliderAfterDuration()
