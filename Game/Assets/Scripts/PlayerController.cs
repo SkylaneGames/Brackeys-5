@@ -30,12 +30,14 @@ public class PlayerController : SpiritController
         if (PossessionSystem.PhysicalForm != null)
         {
             PossessionSystem.PhysicalForm.Controller.CombatSystem.HealthSystem.CharacterKilled += PhysicalFormKilled;
+            PossessionSystem.ExceededTimeAwayFromBody += PhysicalFormKilled;
         }
     }
 
     private void PhysicalFormKilled()
     {
-        GameManager.PlayerDied();
+        GameManager.PhysicalBodyKilled();
+        _combatSystem.HealthSystem.Kill();
     }
 
     public void OnWin()
@@ -46,6 +48,8 @@ public class PlayerController : SpiritController
     protected override void OnCharacterKilled()
     {
         base.OnCharacterKilled();
+
+        MovementSystem.StopMoving();
 
         GameManager.PlayerDied();
     }

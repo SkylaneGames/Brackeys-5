@@ -112,6 +112,12 @@ namespace Combat
             }
         }
 
+        public void Kill()
+        {
+            CurrentHealth = 0;
+            CharacterKilled?.Invoke();
+        }
+
         public void Heal(int health)
         {
             if (CurrentHealth == MaxHealth)

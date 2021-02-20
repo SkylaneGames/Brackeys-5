@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private LevelLoader LevelLoader;
 
     public GameObject GameOverText;
+    public GameObject BodyDiedText;
     public GameObject WinText;
 
     void Awake()
@@ -47,6 +48,21 @@ public class GameManager : MonoBehaviour
         // Slow down time maybe?
 
         // Fade in "Game Over" over a few seconds then go back to the main menu.
+    }
+
+    public void PhysicalBodyKilled()
+    {
+        StartCoroutine(BodyDied());
+        StartCoroutine(GameOver());
+        // Slow down time maybe?
+
+        // Fade in "Game Over" over a few seconds then go back to the main menu.
+    }
+
+    private IEnumerator BodyDied()
+    {
+        yield return new WaitForSeconds(1f);
+        BodyDiedText.SetActive(true);
     }
 
     private IEnumerator GameOver()
