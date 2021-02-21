@@ -32,7 +32,6 @@ public class ExitPortal : MonoBehaviour
         if (player != null && player.PossessionSystem.PhysicalForm == (Possessable)player.PossessionSystem.PossessedCharacter)
         {
             player.OnWin();
-            Debug.Log($"Hit something: {collider.gameObject.name}");
             GameManager.PlayerExited();
         }
     }

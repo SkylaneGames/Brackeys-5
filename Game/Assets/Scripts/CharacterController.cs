@@ -45,7 +45,6 @@ public abstract class CharacterController : MonoBehaviour
     protected virtual void OnCharacterKilled()
     {
         this.enabled = false;
-        Debug.Log($"{gameObject.name} killed");
         _animator.SetTrigger("Dead");
         _audioSource.Play();
         _bodyCollider.enabled = false;
